@@ -1,19 +1,26 @@
 import { Link, Stack } from 'expo-router';
-import { StyleSheet } from 'react-native';
-
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import LottieView from 'lottie-react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function NotFoundScreen() {
   return (
     <>
-      <Stack.Screen options={{ title: 'Oops!' }} />
-      <ThemedView style={styles.container}>
-        <ThemedText type="title">This screen does not exist.</ThemedText>
+      <Stack.Screen options={{ title: '404 - Not Found' }} />
+      <View style={styles.container}>
+        <LottieView
+          source={require('@/assets/animations/404.json')}
+          autoPlay
+          loop
+          style={styles.animation}
+        />
+
+        <Text style={styles.title}>Oops! Page not found.</Text>
+        <Text style={styles.description}>The screen you’re looking for doesn’t exist.</Text>
+
         <Link href="/" style={styles.link}>
-          <ThemedText type="link">Go to home screen!</ThemedText>
+          <Text style={styles.linkText}>← Go to Home</Text>
         </Link>
-      </ThemedView>
+      </View>
     </>
   );
 }
@@ -21,12 +28,37 @@ export default function NotFoundScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
+    alignItems: 'center',
+    padding: 24,
+  },
+  animation: {
+    width: 240,
+    height: 240,
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: '700',
+    marginBottom: 8,
+    color: '#222',
+  },
+  description: {
+    fontSize: 16,
+    color: '#555',
+    textAlign: 'center',
+    marginBottom: 20,
+    maxWidth: 300,
   },
   link: {
-    marginTop: 15,
-    paddingVertical: 15,
+    backgroundColor: '#007AFF',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+  },
+  linkText: {
+    color: '#fff',
+    fontWeight: '600',
+    fontSize: 15,
   },
 });
