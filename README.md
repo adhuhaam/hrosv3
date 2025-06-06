@@ -1,6 +1,6 @@
-# HRMS Employee Self-Care App (React Native + Expo)
+# HRoS Employee Self-Care App (React Native + Expo)
 
-This is a mobile self-service application for employees, built with **React Native (Expo)**. It connects to the existing PHP-based HRMS backend and provides access to personal data, attendance, leave, payroll, and documents.
+This is a mobile self-service application for employees, built with **React Native (Expo)**. It connects to the existing PHP-based HRoS backend and provides access to personal data, attendance, leave, payroll, and documents.
 
 ---
 
@@ -57,27 +57,7 @@ This is a mobile self-service application for employees, built with **React Nati
 
 ## 📡 API Integration
 
-This app connects to the PHP HRMS backend via REST endpoints:
+This app connects to the PHP HRoS backend via REST endpoints:
 
-- `auth/login.php` → Login
-- `employees/index.php?emp_no=...` → Employee info
-- `leaves/balances.php` → Leave balance
-- `leaves/index.php` → Leave history
-- `document/index.php?emp_no=...` → Documents (image/pdf)
-- `settings/index.php?type=notices|holidays` → Dashboard data
 
-All endpoints are hosted under:  
-`https://api.rccmaldives.com/ess/`
 
-Document files are served from:  
-`https://hros.rccmaldives.com/assets/document/`
-
----
-
-## 🛠️ Setup
-
-### 1. Clone this repo
-
-```bash
-git clone https://github.com/your-username/hrms-employee-app.git
-cd hrms-employee-app
