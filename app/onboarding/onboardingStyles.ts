@@ -2,14 +2,44 @@
 import { StyleSheet } from 'react-native';
 
 export const onboardingStyles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24 },
+ 
   text: { fontSize: 20, textAlign: 'center', marginBottom: 30 },
-  button: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 14,
-    paddingHorizontal: 32,
-    borderRadius: 8,
-    color: '#fff',
-    fontWeight: '600'
-  }
+  
+    container: {
+      flex: 1,
+      padding: 24,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    lottie: {
+      width: 200,
+      height: 200,
+      marginBottom: 30,
+    },
+    title: {
+      fontSize: 28,
+      fontWeight: '700',
+      textAlign: 'center',
+      marginBottom: 12,
+    },
+    subtitle: {
+      fontSize: 16,
+      textAlign: 'center',
+      marginBottom: 40,
+      paddingHorizontal: 10,
+    },
+    button: {
+      backgroundColor: '#007AFF',
+      paddingVertical: 14,
+      paddingHorizontal: 32,
+      borderRadius: 8,
+    },
+    buttonText: {
+      color: '#fff',
+      fontSize: 16,
+      fontWeight: '600',
+    },
+  
+  
+
 });

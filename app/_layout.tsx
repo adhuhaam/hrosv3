@@ -1,11 +1,11 @@
 import { ThemeProvider, useTheme } from '@/app/theme-context';
 import { logout } from '@/app/utils/auth';
 import { Feather, Ionicons } from '@expo/vector-icons';
-import AppLoading from 'expo-app-loading';
+import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { Slot, usePathname, useRouter } from 'expo-router';
 import LottieView from 'lottie-react-native';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import {
   Alert,
   SafeAreaView,
@@ -16,6 +16,9 @@ import {
   View,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
+
+// 👇 Prevent splash screen from auto-hiding on app load
+SplashScreen.preventAutoHideAsync();
 
 function AppContent() {
   const pathname = usePathname();
@@ -80,11 +83,11 @@ function AppContent() {
 
             <View style={styles.rightButtons}>
               <TouchableOpacity onPress={toggleTheme} style={styles.themeToggle}>
-                <Feather name={isDark ? 'sun' : 'moon'}
+                <Feather
+                  name={isDark ? 'sun' : 'moon'}
                   size={24}
                   color={isDark ? '#fff' : '#333'}
                 />
-
               </TouchableOpacity>
               <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                 <Feather name="power" size={26} color="#FF3B30" />
@@ -106,16 +109,21 @@ export default function Layout() {
     'Poppins-Bold': require('@/assets/fonts/Poppins-Bold.ttf'),
   });
 
-  if (!fontsLoaded) return <AppLoading />;
+  const hideSplashScreen = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
-  // Optional: Create a custom Text component to apply the font globally
-  const AppText: React.FC<React.ComponentProps<typeof Text>> = (props) => (
-    <Text {...props} style={[{ fontFamily: 'Poppins-Regular' }, props.style]} />
-  );
+  useEffect(() => {
+    hideSplashScreen();
+  }, [hideSplashScreen]);
+
+  // Prevent layout flash while font is loading
+  if (!fontsLoaded) return null;
 
   return (
     <ThemeProvider>
-      {/* Optionally, provide AppText via context or replace usages of Text with AppText */}
       <AppContent />
     </ThemeProvider>
   );
