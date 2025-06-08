@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
     container: { padding: 20 },
     loading: { flex: 1, justifyContent: "center", alignItems: "center" },
     header: { alignItems: "center", marginBottom: 24, position: "relative" },
-    name: { fontSize: 20, fontWeight: "700", color: "#333", flexDirection: "row", },
+    name: { fontSize: 20, fontWeight: "600", color: "#333", flexDirection: "row", },
     subInfo: { color: "#777", marginBottom: 8, flexDirection: "row", },
     editIcon: { position: "absolute", top: 0, right: 0 },
 

@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { useColorScheme as useSystemColorScheme } from 'react-native';
 
 type Theme = 'light' | 'dark';
 
@@ -15,10 +14,9 @@ const ThemeContext = createContext<{
 export const useTheme = () => useContext(ThemeContext);
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-    const systemTheme = useSystemColorScheme();
     const [theme, setTheme] = useState<Theme>('light');
 
-    // Load theme from storage or use systemTheme initially
+    // Always start from stored theme or default to 'light'
     useEffect(() => {
         const loadTheme = async () => {
             try {
@@ -26,11 +24,11 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
                 if (storedTheme === 'light' || storedTheme === 'dark') {
                     setTheme(storedTheme);
                 } else {
-                    setTheme(systemTheme || 'light');
+                    setTheme('light'); // ✅ always fallback to light, ignore system
                 }
             } catch (error) {
                 console.warn('Failed to load theme from storage', error);
-                setTheme(systemTheme || 'light');
+                setTheme('light');
             }
         };
         loadTheme();

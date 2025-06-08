@@ -18,7 +18,7 @@ export const onboardingStyles = StyleSheet.create({
     },
     title: {
       fontSize: 28,
-      fontWeight: '700',
+      fontWeight: '600',
       textAlign: 'center',
       marginBottom: 12,
     },

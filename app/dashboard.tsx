@@ -1,7 +1,10 @@
 import { useTheme } from '@/app/theme-context';
 
 import {
-  FontAwesome, FontAwesome5, FontAwesome6, Ionicons, MaterialIcons
+  Entypo,
+  FontAwesome, FontAwesome5, FontAwesome6,
+  Fontisto,
+  Ionicons
 } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
@@ -36,6 +39,8 @@ export default function DashboardScreen() {
   const tileText = isDark ? '#ccc' : '#000';
   const sectionTitle22 = isDark ? '#fff' : '#000';
   const dates = isDark ? '#fff' : '#808080';
+
+
 
 
 
@@ -145,23 +150,36 @@ export default function DashboardScreen() {
 
 
             {/* FRONT SIDE */}
-            <Animated.View style={[styles.cardFace, { transform: [{ perspective: 1000 }, { rotateY: frontInterpolate }] }]}>
+            <Animated.View style={[styles.cardFace, { transform: [{ perspective: 2000 }, { rotateY: frontInterpolate }] }]}>
+
               <LinearGradient
                 colors={[
-                  '#006bad', // matte light silver
-                  '#070028', // medium steel gray
-                  '#006bad', // highlight
-                  '#050028', // subtle contrast
-                  '#006bad'  // brushed steel edge
+                  '#006bad',
+                  '#050027',
+                  '#004069',
+                  '#006bad',
+                  '#050027',
+                  '#006bad',
+                  '#042275' // brushed steel edge
                 ]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.xcard} >
 
+
                 <View style={styles.cardOverlay} />
+                <View style={styles.cardOverlayContainer}>
+                  <Image source={require('@/assets/bg.jpg')} style={styles.cardBackgroundImage} />
+                  <View style={styles.cardOverlay} />
+                </View>
+
+
 
                 {/* Top Row with photo + logo */}
                 <View style={styles.cardTopRow}>
+
+
+
                   <View style={styles.cardleft}>
                     {employee?.photo_file_name ? (
                       <Image
@@ -184,11 +202,22 @@ export default function DashboardScreen() {
                 <View style={styles.cardBottom}>
                   <View style={styles.cardBottomLeft}>
                     <Text style={styles.cardValue_name}>{employee?.name || user?.staff_name || user?.name}</Text>
-                    <Text style={styles.cardValue_designation}>{employee?.designation || 'Employee'} | {employee?.department}</Text>
-                    <Text style={{ color: '#fff' }}>{employee?.contact_number}  |  {employee?.emp_email}</Text>
+                    <Text style={styles.cardValue_designation}>{employee?.designation || 'Employee'}  --  {employee?.department}</Text>
+
+
+                    <View style={{
+                      height: 1,
+                      width: '70%',
+                      backgroundColor: '#ffffff50',
+                      marginVertical: 1,
+                      alignSelf: 'stretch',
+                    }} />
+
+                    <Text style={styles.cardValue_designation}>M- {employee?.contact_number}    ----    E-  {employee?.emp_email}</Text>
                   </View>
 
                   <View style={styles.cardBottomRight}>
+                    <Text style={styles.cardValue_empno_x}>Emp No</Text>
                     <Text style={styles.cardValue_empno}>
                       {employee?.emp_no || user?.emp_no}
                     </Text>
@@ -216,11 +245,13 @@ export default function DashboardScreen() {
 
 
 
-                <View style={[styles.strip]}>
 
+                <View style={styles.cardOverlayContainer}>
+                  <Image source={require('@/assets/bg.jpg')} style={styles.cardBackgroundImage} />
                   <Image source={require('@/assets/biz_card_logo.png')} style={styles.biz_card_logo} />
+                  <View style={styles.cardOverlay} />
                 </View>
-                <View style={styles.cardOverlay} />
+
 
 
 
@@ -236,12 +267,12 @@ export default function DashboardScreen() {
       {/* Quick Access Grid */}
       <View style={styles.grid}>
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/attendance')}>
-          <FontAwesome5 name="calendar-check" size={36} color="#006bad" />
+          <FontAwesome5 name="business-time" size={36} color="#006bad" />
           <Text style={[styles.tileTitle, { color: tileText }]}>Attendance</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/leave')}>
-          <MaterialIcons name="flight-takeoff" size={36} color="#006bad" />
+          <Fontisto name="island" size={36} color="#006bad" />
           <Text style={[styles.tileTitle, { color: tileText }]}>Leave</Text>
         </TouchableOpacity>
 
@@ -255,12 +286,31 @@ export default function DashboardScreen() {
           <Text style={[styles.tileTitle, { color: tileText }]}>Payroll</Text>
         </TouchableOpacity>
 
+        <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/chat')}>
+          <Ionicons name="chatbubbles" size={36} color="#006bad" />
+          <Text style={[styles.tileTitle, { color: tileText }]}>HR Chat</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/ot')}>
+          <FontAwesome5 name="user-clock" size={36} color="#006bad" />
+          <Text style={[styles.tileTitle, { color: tileText }]}>OT Details</Text>
+        </TouchableOpacity>
+
+
+        <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/birthday')}>
+          <Entypo name="cake" size={36} color="#006bad" />
+          <Text style={[styles.tileTitle, { color: tileText }]}>Birthdays</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/handbook')}>
+          <FontAwesome name="book" size={36} color="#006bad" />
+          <Text style={[styles.tileTitle, { color: tileText }]}>HR Handbook</Text>
+        </TouchableOpacity>
+
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() =>
-          navigateTo(`/documents-screen?emp_no=${user?.emp_no || employee?.emp_no}`)
-        }
-        >
-          <MaterialIcons name="folder" size={36} color="#006bad" />
+          navigateTo(`/documents-screen?emp_no=${user?.emp_no || employee?.emp_no}`)}>
+          <Entypo name="images" size={36} color="#006bad" />
           <Text style={[styles.tileTitle, { color: tileText }]}>Documents</Text>
         </TouchableOpacity>
       </View>
@@ -324,7 +374,7 @@ const styles = StyleSheet.create({
   },
 
   //holiday styles
-  greeting: { fontSize: 19, fontWeight: '700', color: '#222' },
+  greeting: { fontSize: 19, fontWeight: '400', color: '#222' },
   subtext: { fontSize: 13, color: '#666' },
   grid: {
     flexDirection: 'row',
@@ -348,7 +398,7 @@ const styles = StyleSheet.create({
   },
   tileTitle: {
     fontSize: 12,
-    fontWeight: '500',
+    fontWeight: '600',
     color: '#000',
     marginTop: 8,
     textAlign: 'center',
@@ -364,6 +414,10 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     borderLeftWidth: 6,
     borderLeftColor: '#006bad',
+    elevation: 12,
+    shadowColor: '#000000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.19,
   },
   cardTitle: { fontSize: 16, fontWeight: '600', marginBottom: 0, color: '#333' },
   cardContent: { fontSize: 14, color: '#555' },
@@ -394,30 +448,6 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
 
-  cardShadowLayer: {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    right: -8,
-    bottom: -8,
-    backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    borderRadius: 15,
-    zIndex: - 1,
-    shadowOpacity: 0.2,
-  },
-
-  shadowBlur: {
-    position: 'absolute',
-    top: 15,
-    left: 15,
-    right: -15,
-    bottom: -15,
-    backgroundColor: 'rgba(0, 0, 0, 0.1)',
-    borderRadius: 20,
-    zIndex: -1,
-  },
-
-
 
 
 
@@ -435,26 +465,21 @@ const styles = StyleSheet.create({
 
 
 
-  xcard: {
-    flex: 1,
-    borderRadius: 15,
-    position: 'relative',
-  },
+
 
   cardBack: {
-    zIndex: -1,
+
   },
 
-  strip: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
 
   biz_card_logo: {
     width: 600,
     height: 120,
-    resizeMode: 'contain',
+    resizeMode: 'center',
+    mixBlendMode: 'difference',
+    right: 102,
+    top: 55,
   },
 
 
@@ -463,24 +488,49 @@ const styles = StyleSheet.create({
 
 
 
-  cardType: {
-    width: 60,
-    height: 40,
-    backgroundColor: '#808080',
-    borderRadius: 6,
+
+
+
+  //card gradient 
+  xcard: {
+    flex: 1,
+    borderRadius: 15,
+    position: 'relative',
+    opacity: 0.99,
+  },
+  // container for bg image and overlay
+  cardOverlayContainer: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 15,
+    overflow: 'hidden',
   },
 
+  // background image
+  cardBackgroundImage: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+    position: 'absolute',
+    backgroundBlendMode: 'multiply',
+    opacity: 0.69,
+    borderRadius: 15,
 
 
 
+  },
+
+  // overlay on top of image
   cardOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 18, 42, 0.25)',
-    borderRadius: 5,
+    backgroundColor: 'rgba(1, 40, 88, 0.31)',
     borderTopWidth: 0.9,
     borderColor: 'rgba(13, 122, 223, 0.1)',
-  },
+    borderRadius: 15,
 
+
+
+
+  },
 
 
 
@@ -488,10 +538,10 @@ const styles = StyleSheet.create({
 
   cardBottom: {
     position: 'absolute',
-    bottom: 25,
+    bottom: 15,
     left: 0,
     right: 0,
-    paddingHorizontal: 20,
+    paddingHorizontal: 18,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'flex-end',
@@ -512,31 +562,41 @@ const styles = StyleSheet.create({
 
   cardValue_name: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '400',
     color: '#fff',
     textTransform: 'uppercase',
     flexDirection: 'column',
 
   },
+
   cardValue_designation: {
     fontSize: 10,
-    alignItems: 'flex-end',
-    fontWeight: '600',
-    color: '#fff',
+    alignItems: 'flex-start',
+    fontWeight: '400',
+    color: '#aaa',
     textTransform: 'uppercase',
     flexDirection: 'column',
   },
+
+
 
 
   cardValue_empno: {
     fontSize: 20,
-    fontWeight: '400',
+    fontWeight: '600',
     color: '#fff',
     textTransform: 'uppercase',
     textAlign: 'right',
     flexDirection: 'row',
   },
 
+  cardValue_empno_x: {
+    fontSize: 11,
+    fontWeight: '300',
+    color: '#fff',
+    textAlign: 'right',
+    top: 7,
+  },
 
 
 
@@ -550,6 +610,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginTop: 10,
   },
+
   cardleft: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
@@ -562,11 +623,12 @@ const styles = StyleSheet.create({
     width: 100,
     height: 120,
     resizeMode: 'contain',
-    opacity: 0.40,
+    opacity: 0.80,
     marginTop: 3,
     marginLeft: 3,
     borderRadius: 10,
     mixBlendMode: 'luminosity',
+    zIndex: 0,
 
 
   },
@@ -576,6 +638,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginTop: 0,
     marginRight: 0,
+    zIndex: 0,
   },
 
 

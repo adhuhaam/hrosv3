@@ -1,11 +1,11 @@
 import { ThemeProvider, useTheme } from '@/app/theme-context';
 import { logout } from '@/app/utils/auth';
 import { Feather, Ionicons } from '@expo/vector-icons';
-import * as SplashScreen from 'expo-splash-screen';
 import { useFonts } from 'expo-font';
 import { Slot, usePathname, useRouter } from 'expo-router';
+import * as SplashScreen from 'expo-splash-screen';
 import LottieView from 'lottie-react-native';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Alert,
   SafeAreaView,
@@ -17,9 +17,25 @@ import {
 } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-// 👇 Prevent splash screen from auto-hiding on app load
+// Prevent native splash from auto hiding
 SplashScreen.preventAutoHideAsync();
 
+// Loading screen while fonts load
+function LoadingScreen() {
+  return (
+    <View style={styles.loadingContainer}>
+      <LottieView
+        source={require('@/assets/animations/server.json')}
+        autoPlay
+        loop
+        style={styles.loadingAnimation}
+      />
+      <Text style={styles.loadingText}>Connecting to RCC server . . .</Text>
+    </View>
+  );
+}
+
+// Main App Content
 function AppContent() {
   const pathname = usePathname();
   const router = useRouter();
@@ -33,6 +49,46 @@ function AppContent() {
   const showNav = !isPublicPage;
   const showBackButton = !isPublicPage && !isDashboard;
 
+  const [currentTime, setCurrentTime] = useState('');
+
+  // time 
+  useEffect(() => {
+    const updateTime = () => {
+      try {
+        const now = new Date();
+
+        const formatter = new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Indian/Maldives',
+          day: '2-digit',
+          month: 'short',
+          year: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false,
+        });
+
+        const parts = formatter.formatToParts(now);
+        const get = (type: string) => parts.find(p => p.type === type)?.value || '';
+
+        const date = `${get('day')} ${get('month')} ${get('year')}`;
+        const time = `${get('hour')}:${get('minute')}:${get('second')}`;
+
+        setCurrentTime(`${date}, ${time}`);
+      } catch (e) {
+        setCurrentTime('-- -- --');
+      }
+    };
+
+    updateTime(); // initial call
+    const interval = setInterval(updateTime, 1000); // every second
+    return () => clearInterval(interval); // cleanup
+  }, []);
+
+
+
+
+  // logout
   const handleLogout = async () => {
     try {
       await logout();
@@ -46,13 +102,15 @@ function AppContent() {
   return (
     <View style={[styles.wrapper, { backgroundColor: isDark ? '#000' : '#F8F9FC' }]}>
       {!isDark && (
-        <LottieView
-          source={require('@/assets/animations/wave.json')}
-          autoPlay
-          loop
-          style={StyleSheet.absoluteFill}
-          resizeMode="cover"
-        />
+        <View style={styles.lottieBackground}>
+          <LottieView
+            source={require('@/assets/animations/wave.json')}
+            autoPlay
+            loop
+            style={styles.lottieAnimation}
+            resizeMode="cover"
+          />
+        </View>
       )}
 
       <SafeAreaView style={styles.container}>
@@ -65,29 +123,20 @@ function AppContent() {
         {showNav && (
           <View style={styles.navWrapper}>
             {showBackButton ? (
-              <TouchableOpacity
-                onPress={() => {
-                  try {
-                    router.back();
-                  } catch (e) {
-                    console.warn('Back navigation failed:', e);
-                  }
-                }}
-                style={styles.backButton}
-              >
+              <TouchableOpacity onPress={router.back} style={styles.backButton}>
                 <Ionicons name="arrow-back" size={26} color={isDark ? '#fff' : '#333'} />
               </TouchableOpacity>
             ) : (
               <View style={styles.backButtonPlaceholder} />
             )}
 
+            <View style={styles.centerClock}>
+              <Text style={[styles.clockText, { color: isDark ? '#fff' : '#333' }]}>{currentTime}</Text>
+            </View>
+
             <View style={styles.rightButtons}>
               <TouchableOpacity onPress={toggleTheme} style={styles.themeToggle}>
-                <Feather
-                  name={isDark ? 'sun' : 'moon'}
-                  size={24}
-                  color={isDark ? '#fff' : '#333'}
-                />
+                <Feather name={isDark ? 'sun' : 'moon'} size={24} color={isDark ? '#fff' : '#333'} />
               </TouchableOpacity>
               <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
                 <Feather name="power" size={26} color="#FF3B30" />
@@ -103,10 +152,10 @@ function AppContent() {
   );
 }
 
+// Layout wrapper
 export default function Layout() {
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('@/assets/fonts/Poppins-Regular.ttf'),
-    'Poppins-Bold': require('@/assets/fonts/Poppins-Bold.ttf'),
   });
 
   const hideSplashScreen = useCallback(async () => {
@@ -119,8 +168,7 @@ export default function Layout() {
     hideSplashScreen();
   }, [hideSplashScreen]);
 
-  // Prevent layout flash while font is loading
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) return <LoadingScreen />;
 
   return (
     <ThemeProvider>
@@ -129,6 +177,7 @@ export default function Layout() {
   );
 }
 
+// Styles
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
@@ -141,7 +190,6 @@ const styles = StyleSheet.create({
   },
   navWrapper: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
     marginBottom: 6,
@@ -152,6 +200,14 @@ const styles = StyleSheet.create({
   backButtonPlaceholder: {
     width: 30,
   },
+  centerClock: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  clockText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
   rightButtons: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -159,9 +215,33 @@ const styles = StyleSheet.create({
   themeToggle: {
     padding: 6,
     borderRadius: 20,
-    backgroundColor: 'transparent',
   },
   logoutButton: {
     marginLeft: 16,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  loadingAnimation: {
+    width: 160,
+    height: 160,
+  },
+  loadingText: {
+    marginTop: 20,
+    fontSize: 16,
+    color: '#333',
+    fontWeight: '600',
+  },
+  lottieBackground: {
+    ...StyleSheet.absoluteFillObject,
+    zIndex: -1,
+  },
+  lottieAnimation: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
   },
 });

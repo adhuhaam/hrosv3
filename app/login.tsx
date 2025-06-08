@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    fontWeight: '400',
+    fontWeight: '600',
     marginBottom: 20,
     textAlign: 'center',
   },
