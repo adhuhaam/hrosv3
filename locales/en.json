@@ -1,0 +1,44 @@
+{
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "password": "Password",
+    "invalid": "Invalid credentials",
+    "missing": "All fields are required.",
+    "loginFailed": "Login Failed",
+    "logoutFailed": "Logout Failed"
+  },
+  "profile": {
+    "title": "Employee Profile",
+    "employeeNo": "Employee No",
+    "salary": "Basic Salary",
+    "netSalary": "Net Salary",
+    "loanDeduction": "Loan Deduction",
+    "serviceAllowance": "Service Allowance",
+    "overtime": "Overtime",
+    "noPay": "No Pay",
+    "reset": "Reset Password",
+    "updated": "Profile updated",
+    "contact": "Contact Number",
+    "email": "Email",
+    "address": "Present Address",
+    "emergencyContactName": "Emergency Contact Name",
+    "emergencyContactNumber": "Emergency Contact Number",
+    "department": "Department",
+    "dateOfJoin": "Date of Join"
+  },
+  "common": {
+    "error": "Error",
+    "tryAgain": "Try again",
+    "comingSoon": "Coming Soon",
+    "featureSoon": "Feature coming soon",
+    "somethingWrong": "Something went wrong.",
+    "pleaseTryAgain": "Something went wrong. Please try again.",
+    "documentFailed": "Cannot load documents.",
+    "downloadFailed": "Download failed",
+    "searchMonth": "Search month...",
+    "searchLeave": "Search leave type...",
+    "contactHR": "Please contact the HR department.",
+    "navigationError": "Navigation Error"
+  }
+}

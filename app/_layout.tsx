@@ -4,42 +4,28 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { Slot, usePathname, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import LottieView from 'lottie-react-native';
 import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Alert,
+  Pressable,
   SafeAreaView,
   StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import Toast from 'react-native-toast-message';
+import '../i18n';
 
-// Prevent native splash from auto hiding
 SplashScreen.preventAutoHideAsync();
 
-// Loading screen while fonts load
-function LoadingScreen() {
-  return (
-    <View style={styles.loadingContainer}>
-      <LottieView
-        source={require('@/assets/animations/server.json')}
-        autoPlay
-        loop
-        style={styles.loadingAnimation}
-      />
-      <Text style={styles.loadingText}>Connecting to RCC server . . .</Text>
-    </View>
-  );
-}
-
-// Main App Content
 function AppContent() {
   const pathname = usePathname();
   const router = useRouter();
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
+  const { t } = useTranslation();
   const isDark = theme === 'dark';
 
   const isPublicPage = ['/', '/login', '/onboarding'].some((route) =>
@@ -49,76 +35,22 @@ function AppContent() {
   const showNav = !isPublicPage;
   const showBackButton = !isPublicPage && !isDashboard;
 
-  const [currentTime, setCurrentTime] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  // time 
-  useEffect(() => {
-    const updateTime = () => {
-      try {
-        const now = new Date();
-
-        const formatter = new Intl.DateTimeFormat('en-GB', {
-          timeZone: 'Indian/Maldives',
-          day: '2-digit',
-          month: 'short',
-          year: '2-digit',
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: false,
-        });
-
-        const parts = formatter.formatToParts(now);
-        const get = (type: string) => parts.find(p => p.type === type)?.value || '';
-
-        const date = `${get('day')} ${get('month')} ${get('year')}`;
-        const time = `${get('hour')}:${get('minute')}:${get('second')}`;
-
-        setCurrentTime(`${date}, ${time}`);
-      } catch (e) {
-        setCurrentTime('-- -- --');
-      }
-    };
-
-    updateTime(); // initial call
-    const interval = setInterval(updateTime, 1000); // every second
-    return () => clearInterval(interval); // cleanup
-  }, []);
-
-
-
-
-  // logout
   const handleLogout = async () => {
     try {
       await logout();
       router.replace('/login');
     } catch (error) {
       console.error('Logout error:', error);
-      Alert.alert('Logout Failed', 'Something went wrong during logout.');
+      Alert.alert(t('common.error'), t('auth.logoutFailed'));
     }
   };
 
   return (
     <View style={[styles.wrapper, { backgroundColor: isDark ? '#000' : '#F8F9FC' }]}>
-      {!isDark && (
-        <View style={styles.lottieBackground}>
-          <LottieView
-            source={require('@/assets/animations/wave.json')}
-            autoPlay
-            loop
-            style={styles.lottieAnimation}
-            resizeMode="cover"
-          />
-        </View>
-      )}
-
       <SafeAreaView style={styles.container}>
-        <StatusBar
-          barStyle={isDark ? 'light-content' : 'dark-content'}
-          translucent
-          backgroundColor="transparent"
-        />
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} translucent backgroundColor="transparent" />
 
         {showNav && (
           <View style={styles.navWrapper}>
@@ -130,17 +62,24 @@ function AppContent() {
               <View style={styles.backButtonPlaceholder} />
             )}
 
-            <View style={styles.centerClock}>
-              <Text style={[styles.clockText, { color: isDark ? '#fff' : '#333' }]}>{currentTime}</Text>
-            </View>
-
             <View style={styles.rightButtons}>
-              <TouchableOpacity onPress={toggleTheme} style={styles.themeToggle}>
-                <Feather name={isDark ? 'sun' : 'moon'} size={24} color={isDark ? '#fff' : '#333'} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleLogout} style={styles.logoutButton}>
-                <Feather name="power" size={26} color="#FF3B30" />
-              </TouchableOpacity>
+              <Pressable onPress={() => setMenuOpen(!menuOpen)}>
+                <Feather name="more-vertical" size={26} color={isDark ? '#fff' : '#333'} />
+              </Pressable>
+
+              {menuOpen && (
+                <View style={styles.dropdownMenu}>
+                  <TouchableOpacity onPress={() => { setMenuOpen(false); router.push('/settings'); }} style={styles.menuButton}>
+                    <Feather name="settings" size={18} color="#333" />
+                    <Text style={styles.menuText}>Settings</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={handleLogout} style={styles.menuButton}>
+                    <Feather name="power" size={18} color="#FF3B30" />
+                    <Text style={[styles.menuText, { color: '#FF3B30' }]}>{t('auth.logout')}</Text>
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           </View>
         )}
@@ -152,21 +91,24 @@ function AppContent() {
   );
 }
 
-// Layout wrapper
+function LoadingScreen() {
+  return (
+    <View style={styles.loadingContainer}>
+      <Text style={styles.loadingText}>Connecting to RCC server . . .</Text>
+    </View>
+  );
+}
+
 export default function Layout() {
   const [fontsLoaded] = useFonts({
     'Poppins-Regular': require('@/assets/fonts/Poppins-Regular.ttf'),
   });
 
   const hideSplashScreen = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
+    if (fontsLoaded) await SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
-  useEffect(() => {
-    hideSplashScreen();
-  }, [hideSplashScreen]);
+  useEffect(() => { hideSplashScreen(); }, [hideSplashScreen]);
 
   if (!fontsLoaded) return <LoadingScreen />;
 
@@ -177,71 +119,48 @@ export default function Layout() {
   );
 }
 
-// Styles
 const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    position: 'relative',
-  },
-  container: {
-    flex: 1,
-    paddingTop: 40,
-    backgroundColor: 'transparent',
-  },
+  wrapper: { flex: 1 },
+  container: { flex: 1, paddingTop: 40 },
   navWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    marginBottom: 6,
+    flexDirection: 'row', alignItems: 'center',
+    justifyContent: 'space-between', paddingHorizontal: 20, marginBottom: 6,
   },
-  backButton: {
-    padding: 4,
-  },
-  backButtonPlaceholder: {
-    width: 30,
-  },
-  centerClock: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  clockText: {
-    fontSize: 14,
-    fontWeight: '500',
-  },
-  rightButtons: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  themeToggle: {
-    padding: 6,
-    borderRadius: 20,
-  },
-  logoutButton: {
-    marginLeft: 16,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  backButton: { padding: 4 },
+  backButtonPlaceholder: { width: 30 },
+  rightButtons: { flexDirection: 'column', alignItems: 'flex-end' },
+
+  dropdownMenu: {
     backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 10,
+    marginTop: 8,
+    elevation: 5,
+    width: 180,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    zIndex: 999,
   },
-  loadingAnimation: {
-    width: 160,
-    height: 160,
+  menuButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingVertical: 8,
   },
-  loadingText: {
-    marginTop: 20,
+  menuText: {
     fontSize: 16,
     color: '#333',
     fontWeight: '600',
   },
-  lottieBackground: {
-    ...StyleSheet.absoluteFillObject,
-    zIndex: -1,
+
+  loadingContainer: {
+    flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff',
   },
-  lottieAnimation: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
+  loadingText: {
+    fontSize: 16,
+    color: '#333',
+    fontWeight: '600',
+    marginTop: 20,
   },
 });

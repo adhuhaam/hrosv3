@@ -1,0 +1,94 @@
+{
+  "common": {
+    "error": "त्रुटि",
+    "success": "सफलता",
+    "loading": "लोड हो रहा है..."
+  },
+  "auth": {
+    "logout": "लॉगआउट",
+    "logoutFailed": "लॉगआउट विफल रहा",
+    "login": "लॉगिन",
+    "loginFailed": "लॉगिन विफल रहा",
+    "username": "उपयोगकर्ता नाम",
+    "password": "पासवर्ड",
+    "rememberMe": "मुझे याद रखें",
+    "forgotPassword": "पासवर्ड भूल गए?"
+  },
+  "dashboard": {
+    "welcome": "स्वागत है",
+    "yourDashboard": "आपका डैशबोर्ड",
+    "attendanceSummary": "उपस्थिति सारांश",
+    "present": "उपस्थित",
+    "absent": "अनुपस्थित",
+    "leave": "अवकाश",
+    "announcements": "घोषणाएँ",
+    "events": "आगामी कार्यक्रम",
+    "attendance": "उपस्थिति",
+    "profile": "प्रोफ़ाइल",
+    "payroll": "वेतन",
+    "chat": "एचआर चैट",
+    "ot": "ओवरटाइम विवरण",
+    "birthday": "जन्मदिन",
+    "handbook": "एचआर पुस्तिका",
+    "documents": "दस्तावेज़",
+    "noAnnouncements": "कोई घोषणाएँ नहीं मिलीं",
+    "holidays": "आगामी छुट्टियाँ",
+    "noHolidays": "कोई छुट्टियाँ नहीं हैं"
+  },
+  "profile": {
+    "title": "प्रोफ़ाइल",
+    "personalInfo": "व्यक्तिगत जानकारी",
+    "contact": "संपर्क नंबर",
+    "email": "ईमेल",
+    "address": "वर्तमान पता",
+    "emergencyName": "आपातकालीन संपर्क नाम",
+    "emergencyNumber": "आपातकालीन संपर्क नंबर",
+    "jobInfo": "नौकरी की जानकारी",
+    "department": "विभाग",
+    "dateOfJoin": "कार्यग्रहण की तिथि",
+    "salary": "वेतन",
+    "edit": "प्रोफ़ाइल संपादित करें",
+    "contactNumber": "संपर्क नंबर",
+    "presentAddress": "वर्तमान पता",
+    "emergencyContactName": "आपातकालीन संपर्क नाम",
+    "emergencyContactNumber": "आपातकालीन संपर्क नंबर",
+    "basicSalary": "मूल वेतन",
+    "editProfile": "प्रोफ़ाइल संपादित करें",
+    "save": "सहेजें",
+    "cancel": "रद्द करें"
+  },
+  "error": {
+    "title": "त्रुटि",
+    "profileLoad": "प्रोफ़ाइल लोड करने में विफल।",
+    "missingFields": "फ़ील्ड गायब हैं",
+    "allFieldsRequired": "सभी फ़ील्ड आवश्यक हैं।",
+    "updateFailed": "अपडेट विफल रहा",
+    "tryAgain": "कृपया पुनः प्रयास करें",
+    "somethingWrong": "कुछ गलत हो गया।"
+  },
+  "toast": {
+    "profileUpdated": "प्रोफ़ाइल अपडेट की गई"
+  },
+  "leave": {
+    "title": "अवकाश रिकॉर्ड",
+    "applyLeave": "अवकाश के लिए आवेदन करें",
+    "leaveBalance": "अवकाश शेष",
+    "leaveHistory": "अवकाश इतिहास",
+    "status": "स्थिति",
+    "from": "से",
+    "to": "तक",
+    "searchPlaceholder": "अवकाश प्रकार खोजें...",
+    "noRecords": "कोई अवकाश रिकॉर्ड नहीं मिला",
+    "featureSoon": "यह सुविधा शीघ्र आ रही है"
+  },
+  "payroll": {
+    "monthlySalary": "मासिक वेतन",
+    "annualSalary": "वार्षिक वेतन",
+    "payslip": "वेतन पर्ची",
+    "salaryStructure": "वेतन संरचना",
+    "benefits": "लाभ"
+  },
+  "language": {
+    "selectLanguage": "भाषा चुनें"
+  }
+}

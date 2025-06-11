@@ -2,23 +2,19 @@ import { useTheme } from '@/app/theme-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View
 } from 'react-native';
 
-
-
-// dark theme
 export default function LeaveScreen() {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const isDark = theme === 'dark';
 
   const tileBg = isDark ? '#1e1e1e' : '#fff';
   const sectionTitle22 = isDark ? '#fff' : '#000';
   const dates = isDark ? '#fff' : '#808080';
-
-
-
 
   const [balances, setBalances] = useState<{ [key: string]: number }>({});
   const [history, setHistory] = useState<any[]>([]);
@@ -56,39 +52,39 @@ export default function LeaveScreen() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Text style={[styles.title, { color: sectionTitle22 }]}>Leave Records</Text>
-      <Text style={[styles.sectionTitle, { color: sectionTitle22 }]}>Leave Balance</Text>
+      <Text style={[styles.title, { color: sectionTitle22 }]}>{t('leave.title')}</Text>
+      <Text style={[styles.sectionTitle, { color: sectionTitle22 }]}>{t('leave.leaveBalance')}</Text>
 
       <View style={styles.badgesRow}>
         {Object.entries(balances).map(([type, value]) => (
           <View key={type} style={[styles.badge, { backgroundColor: tileBg }]}>
-            <Text style={[styles.badgeText, { color: dates }]}>{type}: {value}</Text>
+            <Text style={[styles.badgeText, { color: dates }]}>{`${type}: ${value}`}</Text>
           </View>
         ))}
       </View>
 
-      <Text style={styles.sectionTitle}>History</Text>
+      <Text style={[styles.sectionTitle, { color: sectionTitle22 }]}>{t('leave.leaveHistory')}</Text>
       <TextInput
-        placeholder="Search leave type..."
+        placeholder={t('leave.searchPlaceholder')}
         value={search}
         onChangeText={setSearch}
         style={styles.search}
       />
 
       {filteredHistory.length === 0 ? (
-        <Text style={styles.emptyText}>No leave records</Text>
+        <Text style={styles.emptyText}>{t('leave.noRecords')}</Text>
       ) : (
         filteredHistory.map(item => (
           <View key={item.leave_id} style={styles.historyItem}>
             <Text style={styles.historyTitle}>{item.leave_type}</Text>
-            <Text>From: {item.start_date} To: {item.end_date}</Text>
-            <Text>Status: {item.status}</Text>
+            <Text>{t('leave.from')}: {item.start_date} {t('leave.to')}: {item.end_date}</Text>
+            <Text>{t('leave.status')}: {item.status}</Text>
           </View>
         ))
       )}
 
-      <TouchableOpacity style={styles.applyButton} onPress={() => alert('Feature coming soon')}>
-        <Text style={styles.applyButtonText}>Apply Leave</Text>
+      <TouchableOpacity style={styles.applyButton} onPress={() => alert(t('leave.featureSoon'))}>
+        <Text style={styles.applyButtonText}>{t('leave.applyLeave')}</Text>
       </TouchableOpacity>
     </ScrollView>
   );
@@ -105,10 +101,14 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   badgeText: { color: '#006bad', fontWeight: '600', fontSize: 14 },
-  sectionTitle: { fontSize: 18, fontWeight: '600', marginBottom: 10, color: '#006bad', },
+  sectionTitle: { fontSize: 18, fontWeight: '600', marginBottom: 10, color: '#006bad' },
   search: {
-    borderWidth: 1, borderColor: '#ddd', borderRadius: 8,
-    padding: 10, marginBottom: 20, backgroundColor: '#fff'
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 20,
+    backgroundColor: '#fff'
   },
   emptyText: { textAlign: 'center', color: '#888', marginTop: 20 },
   historyItem: {
@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 8,
     marginTop: 30,
-    position: 'relative',
   },
   applyButtonText: { color: '#fff', fontSize: 16, fontWeight: '600' },
 });

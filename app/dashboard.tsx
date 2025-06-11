@@ -1,5 +1,4 @@
 import { useTheme } from '@/app/theme-context';
-
 import {
   Entypo,
   FontAwesome, FontAwesome5, FontAwesome6,
@@ -11,6 +10,7 @@ import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Animated,
   Image,
@@ -30,8 +30,11 @@ type UserType = {
 };
 
 
-// dark theme
+
 export default function DashboardScreen() {
+  //lang
+  const { t } = useTranslation();
+  // dark theme
   const { theme } = useTheme();
   const isDark = theme === 'dark';
 
@@ -268,57 +271,56 @@ export default function DashboardScreen() {
       <View style={styles.grid}>
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/attendance')}>
           <FontAwesome5 name="business-time" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>Attendance</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.attendance')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/leave')}>
           <Fontisto name="island" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>Leave</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.leave')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/profile')}>
           <FontAwesome name="user-circle-o" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>Profile</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.profile')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/payroll')}>
           <FontAwesome6 name="file-invoice-dollar" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>Payroll</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.payroll')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/chat')}>
           <Ionicons name="chatbubbles" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>HR Chat</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.chat')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/ot')}>
           <FontAwesome5 name="user-clock" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>OT Details</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.ot')}</Text>
         </TouchableOpacity>
-
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/birthday')}>
           <Entypo name="cake" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>Birthdays</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.birthday')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() => navigateTo('/handbook')}>
           <FontAwesome name="book" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>HR Handbook</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.handbook')}</Text>
         </TouchableOpacity>
-
 
         <TouchableOpacity style={[styles.tile, { backgroundColor: tileBg }]} onPress={() =>
           navigateTo(`/documents-screen?emp_no=${user?.emp_no || employee?.emp_no}`)}>
           <Entypo name="images" size={36} color="#006bad" />
-          <Text style={[styles.tileTitle, { color: tileText }]}>Documents</Text>
+          <Text style={[styles.tileTitle, { color: tileText }]}>{t('dashboard.documents')}</Text>
         </TouchableOpacity>
+
       </View>
 
       {/* Announcements */}
-      <Text style={[styles.sectionTitle2, { color: sectionTitle22 }]}>📣 Announcements</Text>
+      <Text style={[styles.sectionTitle2, { color: sectionTitle22 }]}>📣 {t('dashboard.announcements')}</Text>
       {notices.length === 0 ? (
-        <Text style={styles.emptyText}>No announcements found</Text>
+        <Text style={[styles.emptyText]}>{t('dashboard.noAnnouncements')}</Text>
       ) : (
         notices.map((notice) => (
           <View key={notice.id} style={[styles.card, { backgroundColor: tileBg }]}>
@@ -330,9 +332,9 @@ export default function DashboardScreen() {
       )}
 
       {/* Holidays */}
-      <Text style={[styles.sectionTitle2, { color: sectionTitle22 }]}>🎉 Upcoming Holidays</Text>
+      <Text style={[styles.sectionTitle2, { color: sectionTitle22 }]}>🎉 {t('dashboard.holidays')}</Text>
       {holidays.length === 0 ? (
-        <Text style={[styles.emptyText, { color: sectionTitle22 }]}>No holidays upcoming</Text>
+        <Text style={[styles.emptyText, { color: sectionTitle22 }]}>{t('dashboard.noHolidays')}</Text>
       ) : (
         holidays
           .sort((a, b) => new Date(a.holiday_date).getTime() - new Date(b.holiday_date).getTime())

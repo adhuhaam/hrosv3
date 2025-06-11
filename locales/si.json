@@ -1,0 +1,44 @@
+{
+  "auth": {
+    "login": "",
+    "logout": "",
+    "password": "",
+    "invalid": "",
+    "missing": "",
+    "loginFailed": "",
+    "logoutFailed": ""
+  },
+  "profile": {
+    "title": "",
+    "employeeNo": "",
+    "salary": "",
+    "netSalary": "",
+    "loanDeduction": "",
+    "serviceAllowance": "",
+    "overtime": "",
+    "noPay": "",
+    "reset": "",
+    "updated": "",
+    "contact": "",
+    "email": "",
+    "address": "",
+    "emergencyContactName": "",
+    "emergencyContactNumber": "",
+    "department": "",
+    "dateOfJoin": ""
+  },
+  "common": {
+    "error": "",
+    "tryAgain": "",
+    "comingSoon": "",
+    "featureSoon": "",
+    "somethingWrong": "",
+    "pleaseTryAgain": "",
+    "documentFailed": "",
+    "downloadFailed": "",
+    "searchMonth": "",
+    "searchLeave": "",
+    "contactHR": "",
+    "navigationError": ""
+  }
+}
