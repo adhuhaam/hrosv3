@@ -1,44 +1,119 @@
 {
-  "auth": {
-    "login": "",
-    "logout": "",
-    "password": "",
-    "invalid": "",
-    "missing": "",
-    "loginFailed": "",
-    "logoutFailed": ""
-  },
-  "profile": {
-    "title": "",
-    "employeeNo": "",
-    "salary": "",
-    "netSalary": "",
-    "loanDeduction": "",
-    "serviceAllowance": "",
-    "overtime": "",
-    "noPay": "",
-    "reset": "",
-    "updated": "",
-    "contact": "",
-    "email": "",
-    "address": "",
-    "emergencyContactName": "",
-    "emergencyContactNumber": "",
-    "department": "",
-    "dateOfJoin": ""
-  },
-  "common": {
-    "error": "",
-    "tryAgain": "",
-    "comingSoon": "",
-    "featureSoon": "",
-    "somethingWrong": "",
-    "pleaseTryAgain": "",
-    "documentFailed": "",
-    "downloadFailed": "",
-    "searchMonth": "",
-    "searchLeave": "",
-    "contactHR": "",
-    "navigationError": ""
-  }
+    "common": {
+        "error": "දෝෂයක්",
+        "success": "සාර්ථකයි",
+        "loading": "පූරණය වෙමින්...",
+        "close": "වසන්න",
+        "view": "බලන්න",
+        "comingSoon": "ඉක්මනින් පැමිණේ"
+    },
+    "attendance": {
+        "note": "පැමිණීමේ වාර්තා පද්ධති සමමුහුර්තය සහ සමාගමේ ප්‍රතිපත්තියට යටත්වේ.",
+        "searchMonth": "මාසය සොයන්න...",
+        "featureSoon": "මෙම විශේෂාංගය සංවර්ධනය වෙමින් පවතී"
+    },
+    "auth": {
+        "logout": "පිටවන්න",
+        "logoutFailed": "පිටවීම අසාර්ථකයි",
+        "login": "ඇතුල් වන්න",
+        "loginFailed": "ඇතුල් වීම අසාර්ථකයි",
+        "username": "පරිශීලක නාමය",
+        "password": "මුරපදය",
+        "rememberMe": "මාව මතක තබා ගන්න",
+        "forgotPassword": "මුරපදය අමතක වුණාද?"
+    },
+    "dashboard": {
+        "welcome": "සාදරයෙන් පිළිගනිමු",
+        "yourDashboard": "ඔබගේ ඩෑෂ්බෝඩ්",
+        "attendanceSummary": "පැමිණීම් සාරාංශය",
+        "present": "සිටිනවා",
+        "absent": "නැත",
+        "leave": "විවේකය",
+        "announcements": "ප්‍රකාශන",
+        "events": "ඉදිරියෙන් පැවැත්වෙන සිදුවීම්",
+        "attendance": "පැමිණීම",
+        "profile": "පැතිකඩ",
+        "payroll": "වැටුප්",
+        "chat": "HR සංවාදය",
+        "ot": "අතිකාල විස්තර",
+        "birthday": "උපන්දිනය",
+        "handbook": "HR අත්පොත",
+        "documents": "ලේඛන",
+        "noAnnouncements": "ප්‍රකාශන කිසිවක් සොයාගැනීමේ නොහැක",
+        "holidays": "ඉදිරි නිවාඩු",
+        "noHolidays": "නිවාඩු කිසිවක් නොමැත"
+    },
+    "profile": {
+        "title": "පැතිකඩ",
+        "personalInfo": "පුද්ගලික තොරතුරු",
+        "contact": "දුරකථන අංකය",
+        "email": "ඊමේල්",
+        "address": "වත්මන් ලිපිනය",
+        "emergencyName": "හදිසි අමතන පුද්ගලයාගේ නම",
+        "emergencyNumber": "හදිසි දුරකථන අංකය",
+        "jobInfo": "රැකියා තොරතුරු",
+        "department": "දිවිඅංශය",
+        "dateOfJoin": "ඇතුළත් වූ දිනය",
+        "salary": "වැටුප",
+        "edit": "පැතිකඩ සංස්කරණය",
+        "contactNumber": "දුරකථන අංකය",
+        "presentAddress": "වත්මන් ලිපිනය",
+        "emergencyContactName": "හදිසි සම්බන්ධතා නම",
+        "emergencyContactNumber": "හදිසි සම්බන්ධතා අංකය",
+        "basicSalary": "මූලික වැටුප",
+        "editProfile": "පැතිකඩ සංස්කරණය කරන්න",
+        "save": "සුරකින්න",
+        "cancel": "අවලංගු කරන්න"
+    },
+    "setting": {
+        "editTheme": "තේමාව සංස්කරණය කරන්න",
+        "selectLanguage": "භාෂාව තෝරන්න",
+        "darkMode": "අඳුරු ප්‍රකාරය"
+    },
+    "error": {
+        "title": "දෝෂය",
+        "profileLoad": "පැතිකඩ පූරණය කිරීම අසාර්ථකයි.",
+        "missingFields": "අප්‍රාප්ත ක්ෂේත්‍ර",
+        "allFieldsRequired": "සියලු ක්ෂේත්‍ර අවශ්‍ය වේ.",
+        "updateFailed": "යාවත්කාලීන කිරීම අසාර්ථකයි",
+        "tryAgain": "කරුණාකර නැවත උත්සාහ කරන්න",
+        "somethingWrong": "කිසියම් දෝෂයක් සිදුවී ඇත."
+    },
+    "toast": {
+        "profileUpdated": "පැතිකඩ යාවත්කාලීන කර ඇත"
+    },
+    "leave": {
+        "title": "විවේක වාර්තා",
+        "applyLeave": "විවේකය ඉල්ලීම",
+        "leaveBalance": "විවේක ශේෂය",
+        "leaveHistory": "විවේක ඉතිහාසය",
+        "status": "තත්ත්වය",
+        "from": "සිට",
+        "to": "දක්වා",
+        "searchPlaceholder": "විවේක වර්ගය සෙවීමට...",
+        "noRecords": "විවේක වාර්තා නොමැත",
+        "featureSoon": "මෙම විශේෂාංගය ඉක්මනින් පැමිණේ"
+    },
+    "payroll": {
+        "monthlySalary": "මාසික වැටුප",
+        "annualSalary": "වාර්ෂික වැටුප",
+        "payslip": "වැටුප් පත්‍රිකාව",
+        "salaryStructure": "වැටුප් ව්‍යුහය",
+        "benefits": "ප්‍රතිලාභ",
+        "title": "වැටුප්",
+        "notice": "{{employeeName}} මහත්මයාණනි, ඔබේ වැටුප් සම්බන්ධයෙන් කිසියම් පැමිණිල්ලක් හෝ කනස්සල්ලක් ඇත්නම්, කරුණාකර යෙදුම තුළ ඇති සංවාද විශේෂාංගය හෝ තනිව හමුවී HR දෙපාර්තමේන්තුව අමතන්න.",
+        "searchMonth": "මාසය සෙවීම...",
+        "breakdownTitle": "{{month}} වැටුප් විස්තරය",
+        "basic": "මූලික වැටුප",
+        "serviceAllowance": "සේවා දීමනාව",
+        "overtime": "අතිකාලය",
+        "loanDeduction": "ණය අඩුකිරීම්",
+        "noPay": "වැටුපක් නැත",
+        "totalEarnings": "මුළු ආදායම",
+        "totalDeductions": "මුළු අඩුකිරීම්",
+        "netSalary": "ශුද්ධ වැටුප"
+    },
+    "language": {
+        "selectLanguage": "භාෂාව තෝරන්න"
+    }
 }

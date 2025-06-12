@@ -2,7 +2,15 @@
   "common": {
     "error": "त्रुटि",
     "success": "सफलता",
-    "loading": "लोड हो रहा है..."
+    "loading": "लोड हो रहा है...",
+    "close": "बंद करें",
+    "view": "देखें",
+    "comingSoon": "जल्द आ रहा है"
+  },
+  "attendance": {
+    "note": "उपस्थिति रिकॉर्ड सिस्टम सिंक और कंपनी नीति के अधीन है।",
+    "searchMonth": "महीना खोजें...",
+    "featureSoon": "यह सुविधा विकासाधीन है"
   },
   "auth": {
     "logout": "लॉगआउट",
@@ -57,6 +65,11 @@
     "save": "सहेजें",
     "cancel": "रद्द करें"
   },
+  "setting": {
+    "editTheme": "थीम संपादित करें",
+    "selectLanguage": "भाषा चुनें",
+    "darkMode": "डार्क मोड"
+  },
   "error": {
     "title": "त्रुटि",
     "profileLoad": "प्रोफ़ाइल लोड करने में विफल।",
@@ -86,7 +99,19 @@
     "annualSalary": "वार्षिक वेतन",
     "payslip": "वेतन पर्ची",
     "salaryStructure": "वेतन संरचना",
-    "benefits": "लाभ"
+    "benefits": "लाभ",
+    "title": "वेतन",
+    "notice": "प्रिय {{employeeName}}, यदि आपके वेतन के बारे में कोई शिकायत या चिंता है, तो कृपया ऐप में चैट फीचर के माध्यम से या व्यक्तिगत रूप से अपने एचआर विभाग से संपर्क करें।",
+    "searchMonth": "महीना खोजें...",
+    "breakdownTitle": "वेतन विवरण  {{month}}",
+    "basic": "मूल वेतन",
+    "serviceAllowance": "सेवा भत्ता",
+    "overtime": "ओवरटाइम",
+    "loanDeduction": "ऋण कटौती",
+    "noPay": "कोई वेतन नहीं",
+    "totalEarnings": "कुल आय",
+    "totalDeductions": "कुल कटौती",
+    "netSalary": "शुद्ध वेतन"
   },
   "language": {
     "selectLanguage": "भाषा चुनें"

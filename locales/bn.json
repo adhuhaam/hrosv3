@@ -1,44 +1,119 @@
 {
-  "auth": {
-    "login": "",
-    "logout": "",
-    "password": "",
-    "invalid": "",
-    "missing": "",
-    "loginFailed": "",
-    "logoutFailed": ""
-  },
-  "profile": {
-    "title": "",
-    "employeeNo": "",
-    "salary": "",
-    "netSalary": "",
-    "loanDeduction": "",
-    "serviceAllowance": "",
-    "overtime": "",
-    "noPay": "",
-    "reset": "",
-    "updated": "",
-    "contact": "",
-    "email": "",
-    "address": "",
-    "emergencyContactName": "",
-    "emergencyContactNumber": "",
-    "department": "",
-    "dateOfJoin": ""
-  },
-  "common": {
-    "error": "",
-    "tryAgain": "",
-    "comingSoon": "",
-    "featureSoon": "",
-    "somethingWrong": "",
-    "pleaseTryAgain": "",
-    "documentFailed": "",
-    "downloadFailed": "",
-    "searchMonth": "",
-    "searchLeave": "",
-    "contactHR": "",
-    "navigationError": ""
-  }
+    "common": {
+        "error": "ত্রুটি",
+        "success": "সফলতা",
+        "loading": "লোড হচ্ছে...",
+        "close": "বন্ধ করুন",
+        "view": "দেখুন",
+        "comingSoon": "শীঘ্রই আসছে"
+    },
+    "attendance": {
+        "note": "উপস্থিতির রেকর্ড সিস্টেম সিঙ্ক এবং কোম্পানির নীতিমালার উপর নির্ভরশীল।",
+        "searchMonth": "মাস অনুসন্ধান করুন...",
+        "featureSoon": "এই ফিচারটি নির্মাণাধীন"
+    },
+    "auth": {
+        "logout": "লগআউট",
+        "logoutFailed": "লগআউট ব্যর্থ হয়েছে",
+        "login": "লগইন",
+        "loginFailed": "লগইন ব্যর্থ হয়েছে",
+        "username": "ব্যবহারকারীর নাম",
+        "password": "পাসওয়ার্ড",
+        "rememberMe": "আমাকে মনে রাখুন",
+        "forgotPassword": "পাসওয়ার্ড ভুলে গেছেন?"
+    },
+    "dashboard": {
+        "welcome": "স্বাগতম",
+        "yourDashboard": "আপনার ড্যাশবোর্ড",
+        "attendanceSummary": "উপস্থিতির সারাংশ",
+        "present": "উপস্থিত",
+        "absent": "অনুপস্থিত",
+        "leave": "ছুটি",
+        "announcements": "ঘোষণা",
+        "events": "আসন্ন ইভেন্ট",
+        "attendance": "উপস্থিতি",
+        "profile": "প্রোফাইল",
+        "payroll": "বেতন",
+        "chat": "এইচআর চ্যাট",
+        "ot": "অতিরিক্ত সময়ের বিবরণ",
+        "birthday": "জন্মদিন",
+        "handbook": "এইচআর হ্যান্ডবুক",
+        "documents": "ডকুমেন্টস",
+        "noAnnouncements": "কোনো ঘোষণা পাওয়া যায়নি",
+        "holidays": "আসন্ন ছুটি",
+        "noHolidays": "কোনো ছুটি পাওয়া যায়নি"
+    },
+    "profile": {
+        "title": "প্রোফাইল",
+        "personalInfo": "ব্যক্তিগত তথ্য",
+        "contact": "যোগাযোগ নম্বর",
+        "email": "ইমেইল",
+        "address": "বর্তমান ঠিকানা",
+        "emergencyName": "জরুরি যোগাযোগ নাম",
+        "emergencyNumber": "জরুরি যোগাযোগ নম্বর",
+        "jobInfo": "চাকরির তথ্য",
+        "department": "বিভাগ",
+        "dateOfJoin": "যোগদানের তারিখ",
+        "salary": "বেতন",
+        "edit": "প্রোফাইল সম্পাদনা",
+        "contactNumber": "যোগাযোগ নম্বর",
+        "presentAddress": "বর্তমান ঠিকানা",
+        "emergencyContactName": "জরুরি যোগাযোগ নাম",
+        "emergencyContactNumber": "জরুরি যোগাযোগ নম্বর",
+        "basicSalary": "মৌলিক বেতন",
+        "editProfile": "প্রোফাইল সম্পাদনা করুন",
+        "save": "সংরক্ষণ করুন",
+        "cancel": "বাতিল করুন"
+    },
+    "setting": {
+        "editTheme": "থিম সম্পাদনা",
+        "selectLanguage": "ভাষা নির্বাচন করুন",
+        "darkMode": "ডার্ক মোড"
+    },
+    "error": {
+        "title": "ত্রুটি",
+        "profileLoad": "প্রোফাইল লোড ব্যর্থ হয়েছে।",
+        "missingFields": "অনুপস্থিত ক্ষেত্র",
+        "allFieldsRequired": "সব ক্ষেত্র পূরণ করা আবশ্যক।",
+        "updateFailed": "আপডেট ব্যর্থ হয়েছে",
+        "tryAgain": "আবার চেষ্টা করুন",
+        "somethingWrong": "কিছু ভুল হয়েছে।"
+    },
+    "toast": {
+        "profileUpdated": "প্রোফাইল আপডেট হয়েছে"
+    },
+    "leave": {
+        "title": "ছুটির রেকর্ড",
+        "applyLeave": "ছুটি আবেদন",
+        "leaveBalance": "ছুটির ব্যালেন্স",
+        "leaveHistory": "ছুটির ইতিহাস",
+        "status": "অবস্থা",
+        "from": "থেকে",
+        "to": "পর্যন্ত",
+        "searchPlaceholder": "ছুটির ধরন অনুসন্ধান করুন...",
+        "noRecords": "কোনো ছুটির রেকর্ড পাওয়া যায়নি",
+        "featureSoon": "এই ফিচারটি শীঘ্রই আসছে"
+    },
+    "payroll": {
+        "monthlySalary": "মাসিক বেতন",
+        "annualSalary": "বার্ষিক বেতন",
+        "payslip": "পে-স্লিপ",
+        "salaryStructure": "বেতন কাঠামো",
+        "benefits": "সুবিধাসমূহ",
+        "title": "বেতন",
+        "notice": "প্রিয় {{employeeName}}, আপনার বেতনের বিষয়ে কোনো অভিযোগ বা উদ্বেগ থাকলে, অনুগ্রহ করে অ্যাপের চ্যাট ফিচারের মাধ্যমে বা সরাসরি এইচআর বিভাগে যোগাযোগ করুন।",
+        "searchMonth": "মাস অনুসন্ধান করুন...",
+        "breakdownTitle": "{{month}} মাসের বেতন বিশ্লেষণ",
+        "basic": "মৌলিক বেতন",
+        "serviceAllowance": "সার্ভিস ভাতা",
+        "overtime": "অতিরিক্ত সময়",
+        "loanDeduction": "ঋণ কর্তন",
+        "noPay": "নো-পে",
+        "totalEarnings": "মোট আয়",
+        "totalDeductions": "মোট কর্তন",
+        "netSalary": "নেট বেতন"
+    },
+    "language": {
+        "selectLanguage": "ভাষা নির্বাচন করুন"
+    }
 }

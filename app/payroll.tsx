@@ -2,6 +2,7 @@ import { useTheme } from '@/app/theme-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     Modal,
     Pressable,
@@ -19,18 +20,19 @@ const dummyMonths = [
 ];
 
 const dummyBreakdown = [
-    { label: 'Basic Salary', amount: '4,500.00' },
-    { label: 'Service Allowance', amount: '500.00' },
-    { label: 'Overtime', amount: '250.00' },
-    { label: 'Loan Deduction', amount: '-300.00' },
-    { label: 'No Pay', amount: '-100.00' },
-    { label: 'Total Earnings', amount: '5,250.00' },
-    { label: 'Total Deductions', amount: '400.00' },
-    { label: 'Net Salary', amount: '4,850.00' },
+    { label: 'payroll.basic', amount: '4,500.00' },
+    { label: 'payroll.serviceAllowance', amount: '500.00' },
+    { label: 'payroll.overtime', amount: '250.00' },
+    { label: 'payroll.loanDeduction', amount: '-300.00' },
+    { label: 'payroll.noPay', amount: '-100.00' },
+    { label: 'payroll.totalEarnings', amount: '5,250.00' },
+    { label: 'payroll.totalDeductions', amount: '400.00' },
+    { label: 'payroll.netSalary', amount: '4,850.00' },
 ];
 
 export default function PayrollScreen() {
     const { theme } = useTheme();
+    const { t } = useTranslation();
     const isDark = theme === 'dark';
 
     const tileBg = isDark ? '#1e1e1e' : '#fff';
@@ -78,24 +80,23 @@ export default function PayrollScreen() {
     return (
         <>
             <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDark ? '#000' : '#F4F7FC' }]}>
-                <Text style={[styles.title, { color: textColor }]}>Payroll</Text>
+                <Text style={[styles.title, { color: textColor }]}>{t('payroll.title') || 'Payroll'}</Text>
                 <Text style={[styles.note, { color: '#FF3B30' }]}>
-                    Dear {employeeName}, if you have any complaint or concern regarding your payroll,
-                    please contact your HR Department via the chat feature in the app or in person.
+                    {t('payroll.notice', { employeeName })}
                 </Text>
 
                 <View style={[styles.salaryCard, { backgroundColor: tileBg }]}>
-                    <Text style={[styles.label, { color: subColor }]}>Monthly Salary</Text>
+                    <Text style={[styles.label, { color: subColor }]}>{t('payroll.monthlySalary')}</Text>
                     <Text style={[styles.amount, { color: textColor }]}>MVR {formatMoney(monthlySalary)}</Text>
 
                     <View style={styles.divider} />
 
-                    <Text style={[styles.label, { color: subColor }]}>Annual Salary</Text>
+                    <Text style={[styles.label, { color: subColor }]}>{t('payroll.annualSalary')}</Text>
                     <Text style={[styles.amount, { color: textColor }]}>MVR {formatMoney(annualSalary)}</Text>
                 </View>
 
                 <TextInput
-                    placeholder="Search month..."
+                    placeholder={t('payroll.searchMonth') || 'Search month...'}
                     placeholderTextColor={isDark ? '#aaa' : '#666'}
                     value={search}
                     onChangeText={setSearch}
@@ -118,18 +119,17 @@ export default function PayrollScreen() {
                             style={styles.viewBtn}
                             onPress={() => openBreakdownModal(month)}
                         >
-                            <Text style={styles.viewText}>View</Text>
+                            <Text style={styles.viewText}>{t('common.view') || 'View'}</Text>
                         </TouchableOpacity>
                     </View>
                 ))}
             </ScrollView>
 
-            {/* MODAL */}
             <Modal visible={showModal} animationType="slide" transparent>
                 <View style={styles.modalOverlay}>
                     <View style={[styles.modalFullScreen, { backgroundColor: isDark ? '#1e1e1e' : '#fff' }]}>
                         <Text style={[styles.modalTitle, { color: textColor }]}>
-                            Salary Breakdown – {selectedMonth}
+                            {t('payroll.breakdownTitle', { month: selectedMonth })}
                         </Text>
                         <View style={styles.modalTitleDivider} />
 
@@ -137,38 +137,34 @@ export default function PayrollScreen() {
                             {dummyBreakdown.map((item, idx) => (
                                 <View key={idx}>
                                     <View style={styles.breakRow}>
-                                        <Text
-                                            style={[
-                                                styles.breakLabel,
-                                                {
-                                                    color: item.label === 'Net Salary' ? '#006bad' : textColor,
-                                                    fontSize: item.label === 'Net Salary' ? 18 : 14,
-                                                    fontWeight: item.label === 'Net Salary' ? '700' : '500',
-                                                },
-                                            ]}
-                                        >
-                                            {item.label}
+                                        <Text style={[
+                                            styles.breakLabel,
+                                            {
+                                                color: item.label === 'payroll.netSalary' ? '#006bad' : textColor,
+                                                fontSize: item.label === 'payroll.netSalary' ? 18 : 14,
+                                                fontWeight: item.label === 'payroll.netSalary' ? '700' : '500',
+                                            },
+                                        ]}>
+                                            {t(item.label)}
                                         </Text>
-                                        <Text
-                                            style={[
-                                                styles.breakAmount,
-                                                {
-                                                    color: item.label === 'Net Salary' ? '#006bad' : textColor,
-                                                    fontSize: item.label === 'Net Salary' ? 18 : 14,
-                                                    fontWeight: item.label === 'Net Salary' ? '700' : '600',
-                                                },
-                                            ]}
-                                        >
+                                        <Text style={[
+                                            styles.breakAmount,
+                                            {
+                                                color: item.label === 'payroll.netSalary' ? '#006bad' : textColor,
+                                                fontSize: item.label === 'payroll.netSalary' ? 18 : 14,
+                                                fontWeight: item.label === 'payroll.netSalary' ? '700' : '600',
+                                            },
+                                        ]}>
                                             {item.amount}
                                         </Text>
                                     </View>
-                                    {item.label === 'No Pay' && <View style={styles.dividerLine} />}
+                                    {item.label === 'payroll.noPay' && <View style={styles.dividerLine} />}
                                 </View>
                             ))}
                         </ScrollView>
 
                         <Pressable onPress={() => setShowModal(false)} style={styles.modalClose}>
-                            <Text style={styles.modalCloseText}>Close</Text>
+                            <Text style={styles.modalCloseText}>{t('common.close') || 'Close'}</Text>
                         </Pressable>
                     </View>
                 </View>

@@ -4,7 +4,7 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { Slot, usePathname, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Alert,
@@ -36,6 +36,7 @@ function AppContent() {
   const showBackButton = !isPublicPage && !isDashboard;
 
   const [menuOpen, setMenuOpen] = useState(false);
+  const dropdownRef = useRef<View>(null);
 
   const handleLogout = async () => {
     try {
@@ -48,6 +49,7 @@ function AppContent() {
   };
 
   return (
+    //<TouchableWithoutFeedback onPress={() => setMenuOpen(false)}>
     <View style={[styles.wrapper, { backgroundColor: isDark ? '#000' : '#F8F9FC' }]}>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} translucent backgroundColor="transparent" />
@@ -63,15 +65,21 @@ function AppContent() {
             )}
 
             <View style={styles.rightButtons}>
-              <Pressable onPress={() => setMenuOpen(!menuOpen)}>
+              <Pressable onPress={() => setMenuOpen(!menuOpen)} hitSlop={10}>
                 <Feather name="more-vertical" size={26} color={isDark ? '#fff' : '#333'} />
               </Pressable>
 
               {menuOpen && (
-                <View style={styles.dropdownMenu}>
-                  <TouchableOpacity onPress={() => { setMenuOpen(false); router.push('/settings'); }} style={styles.menuButton}>
-                    <Feather name="settings" size={18} color="#333" />
-                    <Text style={styles.menuText}>Settings</Text>
+                <View ref={dropdownRef} style={[styles.dropdownMenu, { backgroundColor: isDark ? '#222' : '#fff' }]}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      setMenuOpen(false);
+                      router.push('/settings');
+                    }}
+                    style={styles.menuButton}
+                  >
+                    <Feather name="settings" size={18} color={isDark ? '#eee' : '#333'} />
+                    <Text style={[styles.menuText, { color: isDark ? '#eee' : '#333' }]}>Settings</Text>
                   </TouchableOpacity>
 
                   <TouchableOpacity onPress={handleLogout} style={styles.menuButton}>
@@ -88,6 +96,7 @@ function AppContent() {
         <Toast />
       </SafeAreaView>
     </View>
+    //</TouchableWithoutFeedback>
   );
 }
 
@@ -123,24 +132,31 @@ const styles = StyleSheet.create({
   wrapper: { flex: 1 },
   container: { flex: 1, paddingTop: 40 },
   navWrapper: {
-    flexDirection: 'row', alignItems: 'center',
-    justifyContent: 'space-between', paddingHorizontal: 20, marginBottom: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 20,
+    marginBottom: 6,
   },
   backButton: { padding: 4 },
   backButtonPlaceholder: { width: 30 },
-  rightButtons: { flexDirection: 'column', alignItems: 'flex-end' },
-
+  rightButtons: {
+    flexDirection: 'column',
+    alignItems: 'flex-end',
+    position: 'relative',
+  },
   dropdownMenu: {
-    backgroundColor: '#fff',
+    position: 'absolute',
+    top: 36,
+    right: 0,
     borderRadius: 10,
     padding: 10,
-    marginTop: 8,
-    elevation: 5,
-    width: 180,
+    elevation: 6,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.25,
     zIndex: 999,
+    width: 180,
   },
   menuButton: {
     flexDirection: 'row',
@@ -150,10 +166,8 @@ const styles = StyleSheet.create({
   },
   menuText: {
     fontSize: 16,
-    color: '#333',
     fontWeight: '600',
   },
-
   loadingContainer: {
     flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff',
   },

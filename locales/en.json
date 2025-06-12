@@ -1,44 +1,125 @@
 {
+  "common": {
+    "error": "Error",
+    "success": "Success",
+    "loading": "Loading...",
+    "close": "Close",
+    "view": "View",
+    "comingSoon": "Coming Soon"
+  },
+  "attendance": {
+    "note": "Attendance records are subject to system sync and company policy.",
+    "searchMonth": "Search month...",
+    "featureSoon": "This feature is under development"
+  },
   "auth": {
-    "login": "Login",
     "logout": "Logout",
+    "logoutFailed": "Logout failed",
+    "login": "Login",
+    "loginFailed": "Login failed",
+    "username": "Username",
     "password": "Password",
-    "invalid": "Invalid credentials",
-    "missing": "All fields are required.",
-    "loginFailed": "Login Failed",
-    "logoutFailed": "Logout Failed"
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "yourDashboard": "Your Dashboard",
+    "attendanceSummary": "Attendance Summary",
+    "present": "Present",
+    "absent": "Absent",
+    "leave": "Leave",
+    "announcements": "Announcements",
+    "events": "Upcoming Events",
+    "attendance": "Attendance",
+    "profile": "Profile",
+    "payroll": "Payroll",
+    "chat": "HR Chat",
+    "ot": "Overtime Details",
+    "birthday": "Birthday",
+    "handbook": "HR Handbook",
+    "documents": "Documents",
+    "noAnnouncements": "No announcements found",
+    "holidays": "Upcoming Holidays",
+    "noHolidays": "No holidays available"
   },
   "profile": {
-    "title": "Employee Profile",
-    "employeeNo": "Employee No",
-    "salary": "Basic Salary",
-    "netSalary": "Net Salary",
-    "loanDeduction": "Loan Deduction",
-    "serviceAllowance": "Service Allowance",
-    "overtime": "Overtime",
-    "noPay": "No Pay",
-    "reset": "Reset Password",
-    "updated": "Profile updated",
+    "title": "Profile",
+    "personalInfo": "Personal Information",
     "contact": "Contact Number",
     "email": "Email",
     "address": "Present Address",
+    "emergencyName": "Emergency Contact Name",
+    "emergencyNumber": "Emergency Contact Number",
+    "jobInfo": "Job Information",
+    "department": "Department",
+    "dateOfJoin": "Date of Join",
+    "salary": "Salary",
+    "edit": "Edit Profile",
+    "contactNumber": "Contact Number",
+    "presentAddress": "Present Address",
     "emergencyContactName": "Emergency Contact Name",
     "emergencyContactNumber": "Emergency Contact Number",
-    "department": "Department",
-    "dateOfJoin": "Date of Join"
+    "basicSalary": "Basic Salary",
+    "editProfile": "Edit Profile",
+    "save": "Save",
+    "cancel": "Cancel"
   },
-  "common": {
-    "error": "Error",
-    "tryAgain": "Try again",
-    "comingSoon": "Coming Soon",
-    "featureSoon": "Feature coming soon",
-    "somethingWrong": "Something went wrong.",
-    "pleaseTryAgain": "Something went wrong. Please try again.",
-    "documentFailed": "Cannot load documents.",
-    "downloadFailed": "Download failed",
+  "setting": {
+    "editTheme": "Edit Theme",
+    "selectLanguage": "Select Language",
+    "darkMode": "Dark Mode"
+  },
+  "error": {
+    "title": "Error",
+    "profileLoad": "Failed to load profile.",
+    "missingFields": "Missing fields",
+    "allFieldsRequired": "All fields are required.",
+    "updateFailed": "Update failed",
+    "tryAgain": "Please try again",
+    "somethingWrong": "Something went wrong."
+  },
+  "toast": {
+    "profileUpdated": "Profile updated"
+  },
+  "leave": {
+    "title": "Leave Records",
+    "applyLeave": "Apply Leave",
+    "leaveBalance": "Leave Balance",
+    "leaveHistory": "Leave History",
+    "status": "Status",
+    "from": "From",
+    "to": "To",
+    "searchPlaceholder": "Search leave type...",
+    "noRecords": "No leave records found",
+    "featureSoon": "This feature is coming soon"
+  },
+  "payroll": {
+    "monthlySalary": "Monthly Salary",
+    "annualSalary": "Annual Salary",
+    "payslip": "Payslip",
+    "salaryStructure": "Salary Structure",
+    "benefits": "Benefits",
+    "title": "Payroll",
+    "notice": "Dear {{employeeName}}, if you have any complaint or concern regarding your payroll, please contact your HR Department via the chat feature in the app or in person.",
     "searchMonth": "Search month...",
-    "searchLeave": "Search leave type...",
-    "contactHR": "Please contact the HR department.",
-    "navigationError": "Navigation Error"
+    "breakdownTitle": "Salary Breakdown {{month}}",
+    "basic": "Basic Salary",
+    "serviceAllowance": "Service Allowance",
+    "overtime": "Overtime",
+    "loanDeduction": "Loan Deduction",
+    "noPay": "No Pay",
+    "totalEarnings": "Total Earnings",
+    "totalDeductions": "Total Deductions",
+    "netSalary": "Net Salary"
+  },
+  "language": {
+    "selectLanguage": "Select Language"
+  },
+  "handbook": {
+    "title": "Employee Handbook",
+    "searchPlaceholder": "Search keyword...",
+    "loading": "Loading handbook...",
+    "noResults": "No matching content found."
   }
 }

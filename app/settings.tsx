@@ -9,20 +9,24 @@ import { StyleSheet, Switch, Text, View } from 'react-native';
 
 export default function SettingsScreen() {
     const { theme, toggleTheme } = useTheme();
-    const { t } = useTranslation();
     const isDark = theme === 'dark';
-
+    const { t } = useTranslation();
     const [language, setLanguage] = useState(i18n.language);
 
     const handleLanguageChange = async (lang: string) => {
-        await i18n.changeLanguage(lang);
-        await AsyncStorage.setItem('lang', lang);
-        setLanguage(lang);
+        try {
+            await i18n.changeLanguage(lang);
+            await AsyncStorage.setItem('lang', lang);
+            setLanguage(lang);
+        } catch (err) {
+            console.error('Language change error:', err);
+        }
     };
 
     return (
         <View style={[styles.container, { backgroundColor: isDark ? '#000' : '#fff' }]}>
-            <Text style={[styles.heading, { color: isDark ? '#fff' : '#000' }]}>{t('language.selectLanguage')}</Text>
+            {/* Language Selection */}
+            <Text style={[styles.heading, { color: isDark ? '#fff' : '#000' }]}>{t('setting.selectLanguage')}</Text>
             <View style={styles.row}>
                 <Ionicons name="language-sharp" size={22} color={isDark ? '#fff' : '#333'} style={styles.icon} />
                 <Picker
@@ -41,20 +45,22 @@ export default function SettingsScreen() {
                 </Picker>
             </View>
 
-            <Text style={[styles.heading, { color: isDark ? '#fff' : '#000' }]}>Theme</Text>
+            {/* Theme Switch */}
+            <Text style={[styles.heading, { color: isDark ? '#fff' : '#000' }]}>{t('setting.editTheme') || 'Theme'}</Text>
             <View style={styles.row}>
                 <Ionicons name="moon" size={22} color={isDark ? '#fff' : '#333'} style={styles.icon} />
-                <Text style={[styles.label, { color: isDark ? '#fff' : '#000' }]}>Dark Mode</Text>
+                <Text style={[styles.label, { color: isDark ? '#fff' : '#000' }]}>{t('setting.darkMode') || 'Dark Mode'}</Text>
                 <Switch
                     value={isDark}
                     onValueChange={toggleTheme}
                     thumbColor={isDark ? '#fff' : '#006bad'}
-                    trackColor={{ false: '#aaa', true: '#006bad' }}
+                    trackColor={{ false: '#ccc', true: '#006bad' }}
                 />
             </View>
         </View>
     );
 }
+
 const styles = StyleSheet.create({
     container: {
         padding: 20,

@@ -1,44 +1,119 @@
 {
-  "auth": {
-    "login": "",
-    "logout": "",
-    "password": "",
-    "invalid": "",
-    "missing": "",
-    "loginFailed": "",
-    "logoutFailed": ""
-  },
-  "profile": {
-    "title": "",
-    "employeeNo": "",
-    "salary": "",
-    "netSalary": "",
-    "loanDeduction": "",
-    "serviceAllowance": "",
-    "overtime": "",
-    "noPay": "",
-    "reset": "",
-    "updated": "",
-    "contact": "",
-    "email": "",
-    "address": "",
-    "emergencyContactName": "",
-    "emergencyContactNumber": "",
-    "department": "",
-    "dateOfJoin": ""
-  },
-  "common": {
-    "error": "",
-    "tryAgain": "",
-    "comingSoon": "",
-    "featureSoon": "",
-    "somethingWrong": "",
-    "pleaseTryAgain": "",
-    "documentFailed": "",
-    "downloadFailed": "",
-    "searchMonth": "",
-    "searchLeave": "",
-    "contactHR": "",
-    "navigationError": ""
-  }
+    "common": {
+        "error": "பிழை",
+        "success": "வெற்றி",
+        "loading": "ஏற்றப்படுகிறது...",
+        "close": "மூடு",
+        "view": "காண்க",
+        "comingSoon": "விரைவில் வருகிறது"
+    },
+    "attendance": {
+        "note": "வருகை பதிவுகள் அமைப்பு ஒத்திசைவு மற்றும் நிறுவன கொள்கைக்கு உட்பட்டது.",
+        "searchMonth": "மாதத்தை தேடு...",
+        "featureSoon": "இந்த அம்சம் விரைவில் வருகிறது"
+    },
+    "auth": {
+        "logout": "வெளியேறு",
+        "logoutFailed": "வெளியேற்றம் தோல்வியடைந்தது",
+        "login": "உள்நுழை",
+        "loginFailed": "உள்நுழைவு தோல்வியடைந்தது",
+        "username": "பயனர்பெயர்",
+        "password": "கடவுச்சொல்",
+        "rememberMe": "என்னை நினைவில் கொள்",
+        "forgotPassword": "கடவுச்சொல்லை மறந்துவிட்டீர்களா?"
+    },
+    "dashboard": {
+        "welcome": "வணக்கம்",
+        "yourDashboard": "உங்கள் டாஷ்போர்டு",
+        "attendanceSummary": "வருகை சுருக்கம்",
+        "present": "வருகை",
+        "absent": "வரவில்லாமல்",
+        "leave": "விடுப்பு",
+        "announcements": "அறிவிப்புகள்",
+        "events": "வரவிருக்கும் நிகழ்வுகள்",
+        "attendance": "வருகை",
+        "profile": "சுயவிவரம்",
+        "payroll": "ஊதியம்",
+        "chat": "HR அரட்டை",
+        "ot": "கூட்ட நேர விவரங்கள்",
+        "birthday": "பிறந்தநாள்",
+        "handbook": "HR கையேடு",
+        "documents": "ஆவணங்கள்",
+        "noAnnouncements": "அறிவிப்புகள் இல்லை",
+        "holidays": "வரவிருக்கும் விடுமுறைகள்",
+        "noHolidays": "விடுமுறைகள் இல்லை"
+    },
+    "profile": {
+        "title": "சுயவிவரம்",
+        "personalInfo": "தனிப்பட்ட தகவல்கள்",
+        "contact": "தொடர்பு எண்",
+        "email": "மின்னஞ்சல்",
+        "address": "தற்காலிக முகவரி",
+        "emergencyName": "அவசர தொடர்பு பெயர்",
+        "emergencyNumber": "அவசர தொடர்பு எண்",
+        "jobInfo": "வேலை விவரங்கள்",
+        "department": "துறை",
+        "dateOfJoin": "சேர்ந்த தேதி",
+        "salary": "ஊதியம்",
+        "edit": "சுயவிவரம் திருத்து",
+        "contactNumber": "தொடர்பு எண்",
+        "presentAddress": "தற்காலிக முகவரி",
+        "emergencyContactName": "அவசர தொடர்பு பெயர்",
+        "emergencyContactNumber": "அவசர தொடர்பு எண்",
+        "basicSalary": "அடிப்படை ஊதியம்",
+        "editProfile": "சுயவிவரம் திருத்து",
+        "save": "சேமிக்கவும்",
+        "cancel": "ரத்து செய்"
+    },
+    "setting": {
+        "editTheme": "தீமைக் மாற்று",
+        "selectLanguage": "மொழியைத் தேர்ந்தெடு",
+        "darkMode": "இருள் நிலை"
+    },
+    "error": {
+        "title": "பிழை",
+        "profileLoad": "சுயவிவரத்தை ஏற்ற இயலவில்லை.",
+        "missingFields": "வெற்று புலங்கள்",
+        "allFieldsRequired": "அனைத்து புலங்களும் தேவை.",
+        "updateFailed": "புதுப்பிப்பு தோல்வியடைந்தது",
+        "tryAgain": "தயவு செய்து மீண்டும் முயற்சி செய்க",
+        "somethingWrong": "ஏதோ தவறு நடந்துவிட்டது."
+    },
+    "toast": {
+        "profileUpdated": "சுயவிவரம் புதுப்பிக்கப்பட்டது"
+    },
+    "leave": {
+        "title": "விடுப்பு பதிவுகள்",
+        "applyLeave": "விடுப்பு விண்ணப்பிக்கவும்",
+        "leaveBalance": "விடுப்பு இருப்பு",
+        "leaveHistory": "விடுப்பு வரலாறு",
+        "status": "நிலை",
+        "from": "தொடங்கும் நாள்",
+        "to": "முடியும் நாள்",
+        "searchPlaceholder": "விடுப்பு வகையைத் தேடு...",
+        "noRecords": "விடுப்பு பதிவுகள் இல்லை",
+        "featureSoon": "இந்த அம்சம் விரைவில் வருகிறது"
+    },
+    "payroll": {
+        "monthlySalary": "மாத சம்பளம்",
+        "annualSalary": "வருடாந்த சம்பளம்",
+        "payslip": "ஊதியச்சீட்டு",
+        "salaryStructure": "ஊதிய அமைப்பு",
+        "benefits": "நன்மைகள்",
+        "title": "ஊதியம்",
+        "notice": "அன்புள்ள {{employeeName}}, உங்கள் ஊதியத்தைப் பற்றிய எந்தவொரு புகார் அல்லது கவலையுமிருந்தால், தயவுசெய்து செயலியில் உள்ள அரட்டை அம்சத்தைப் பயன்படுத்தி அல்லது நேரிலோ HR துறையைத் தொடர்பு கொள்ளவும்.",
+        "searchMonth": "மாதம் தேடு...",
+        "breakdownTitle": "{{month}} சம்பள விவரங்கள்",
+        "basic": "அடிப்படை சம்பளம்",
+        "serviceAllowance": "சேவை படி",
+        "overtime": "கூட்ட நேரம்",
+        "loanDeduction": "கடன் கழிவு",
+        "noPay": "ஊதியம் இல்லை",
+        "totalEarnings": "மொத்த வருமானம்",
+        "totalDeductions": "மொத்த கழிவுகள்",
+        "netSalary": "நிகர ஊதியம்"
+    },
+    "language": {
+        "selectLanguage": "மொழியைத் தேர்ந்தெடு"
+    }
 }

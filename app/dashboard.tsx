@@ -144,7 +144,8 @@ export default function DashboardScreen() {
     <ScrollView
       contentContainerStyle={styles.container}
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
 
       {/* Profile Card */}
       <Pressable onPress={flipCard}>
@@ -366,7 +367,6 @@ export default function DashboardScreen() {
     </ScrollView>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {

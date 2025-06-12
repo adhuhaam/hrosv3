@@ -1,122 +1,109 @@
+// File path: app/profile.tsx
 import { useTheme } from '@/app/theme-context';
-import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import { Ionicons } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
     ActivityIndicator,
     Alert,
+    Modal,
     ScrollView,
     StyleSheet,
     Text,
+    TextInput,
     ToastAndroid,
     TouchableOpacity,
     View
-} from "react-native";
-import { Image as CachedImage } from "react-native-expo-image-cache";
+} from 'react-native';
+import { Image as CachedImage } from 'react-native-expo-image-cache';
 
 export default function ProfileScreen() {
     const { t } = useTranslation();
-    const [empNo, setEmpNo] = useState("");
+    const { theme } = useTheme();
+    const isDark = theme === 'dark';
+    const tileBg = isDark ? '#1e1e1e' : '#fff';
+    const tileText = isDark ? '#ccc' : '#000';
+    const labelx = isDark ? '#fff' : '#000';
+    const vlauex = isDark ? '#ccc' : '#000';
+    const [empNo, setEmpNo] = useState('');
     const [loading, setLoading] = useState(true);
     const [profile, setProfile] = useState<any>(null);
     const [photoFileName, setPhotoFileName] = useState<string | null>(null);
     const [imageError, setImageError] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [form, setForm] = useState({
-        contact_number: "",
-        email: "",
-        persent_address: "",
-        emergency_contact_number: "",
-        emergency_contact_name: "",
+        contact_number: '',
+        email: '',
+        persent_address: '',
+        emergency_contact_number: '',
+        emergency_contact_name: ''
     });
-
-    // Theme
-    const { theme } = useTheme();
-    const isDark = theme === 'dark';
-    const tileBg = isDark ? '#1e1e1e' : '#fff';
-    const tileText = isDark ? '#ccc' : '#000';
 
     useEffect(() => {
         const load = async () => {
-            const userData = await AsyncStorage.getItem("user");
+            const userData = await AsyncStorage.getItem('user');
             if (!userData) return;
-
             const user = JSON.parse(userData);
             setEmpNo(user.emp_no);
-
             try {
                 const [empRes, photoRes] = await Promise.all([
                     axios.get(`https://api.rccmaldives.com/ess/employees/index.php?emp_no=${user.emp_no}`),
-                    axios.get(`https://api.rccmaldives.com/ess/document/index.php?emp_no=${user.emp_no}`),
+                    axios.get(`https://api.rccmaldives.com/ess/document/index.php?emp_no=${user.emp_no}`)
                 ]);
-
                 const foundPhoto = Array.isArray(photoRes?.data?.data)
-                    ? (photoRes.data.data.find(
-                        (doc: { photo_file_name?: string }) => doc.photo_file_name
-                    )?.photo_file_name ?? null)
+                    ? (photoRes.data.data.find((doc: any) => doc.photo_file_name)?.photo_file_name ?? null)
                     : null;
-
-                if (empRes.data.status === "success") {
+                if (empRes.data.status === 'success') {
                     setProfile(empRes.data.data);
                     setForm({
                         contact_number: empRes.data.data.contact_number,
                         email: empRes.data.data.email,
                         persent_address: empRes.data.data.persentaddress,
-                        emergency_contact_number: empRes.data.data.emergency_contact_number ?? "",
-                        emergency_contact_name: empRes.data.data.emergency_contact_name ?? "",
+                        emergency_contact_number: empRes.data.data.emergency_contact_number ?? '',
+                        emergency_contact_name: empRes.data.data.emergency_contact_name ?? ''
                     });
                     setPhotoFileName(foundPhoto);
                 }
             } catch {
-                Alert.alert(t("error.title"), t("error.profileLoad"));
+                Alert.alert(t('error.title'), t('error.profileLoad'));
             } finally {
                 setLoading(false);
             }
         };
-
         load();
     }, []);
 
     const handleSave = async () => {
-        const {
-            contact_number,
-            email,
-            persent_address,
-            emergency_contact_number,
-            emergency_contact_name,
-        } = form;
-
+        const { contact_number, email, persent_address, emergency_contact_number, emergency_contact_name } = form;
         if (!contact_number || !email || !persent_address || !emergency_contact_name || !emergency_contact_number) {
-            Alert.alert(t("error.missingFields"), t("error.allFieldsRequired"));
+            Alert.alert(t('error.missingFields'), t('error.allFieldsRequired'));
             return;
         }
-
         const formData = new FormData();
-        formData.append("emp_no", empNo);
-        formData.append("contact_number", contact_number);
-        formData.append("email", email);
-        formData.append("persent_address", persent_address);
-        formData.append("emergency_contact_number", emergency_contact_number);
-        formData.append("emergency_contact_name", emergency_contact_name);
+        formData.append('emp_no', empNo);
+        formData.append('contact_number', contact_number);
+        formData.append('email', email);
+        formData.append('persent_address', persent_address);
+        formData.append('emergency_contact_number', emergency_contact_number);
+        formData.append('emergency_contact_name', emergency_contact_name);
 
         try {
             const res = await axios.post(
-                "https://api.rccmaldives.com/ess/employees/update_profile.php",
+                'https://api.rccmaldives.com/ess/employees/update_profile.php',
                 formData,
-                { headers: { "Content-Type": "multipart/form-data" } }
+                { headers: { 'Content-Type': 'multipart/form-data' } }
             );
-
-            if (res.data.status === "success") {
+            if (res.data.status === 'success') {
                 setModalVisible(false);
-                ToastAndroid.show(t("toast.profileUpdated"), ToastAndroid.SHORT);
+                ToastAndroid.show(t('toast.profileUpdated'), ToastAndroid.SHORT);
                 setProfile({ ...profile, ...form });
             } else {
-                Alert.alert(t("error.updateFailed"), res.data.message || t("error.tryAgain"));
+                Alert.alert(t('error.updateFailed'), res.data.message || t('error.tryAgain'));
             }
         } catch {
-            Alert.alert(t("error.title"), t("error.somethingWrong"));
+            Alert.alert(t('error.title'), t('error.somethingWrong'));
         }
     };
 
@@ -129,8 +116,8 @@ export default function ProfileScreen() {
     }
 
     return (
-        <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDark ? "#000" : "#f9f9f9" }]}>
-            <View style={styles.card}>
+        <ScrollView contentContainerStyle={[styles.container, { backgroundColor: isDark ? '#000' : '#f9f9f9' }]}>
+            <View style={[styles.card, { backgroundColor: tileBg }]}>
                 <View style={styles.cardHeader}>
                     <View style={styles.avatarContainer}>
                         {!imageError && photoFileName ? (
@@ -143,101 +130,142 @@ export default function ProfileScreen() {
                             <Ionicons name="person-circle-outline" size={100} color="#fff" />
                         )}
                     </View>
-                    <View style={styles.cardHeaderText}>
-                        <Text style={styles.cardName}>{profile.name}</Text>
-                        <Text style={styles.cardMeta}>
-                            {profile.designation} • #{profile.emp_no}
-                        </Text>
+                    <Text style={styles.cardName}>{profile.name}</Text>
+                    <Text style={styles.cardMeta}>{profile.designation} • #{profile.emp_no}</Text>
+                </View>
+
+                <View style={styles.infoBlock}>
+                    <Text style={[styles.sectionTitle, { color: tileText }]}>{t('profile.personalInfo')}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.contact')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.contact_number}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.email')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.email}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.address')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.persentaddress}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.emergencyName')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.emergency_contact_name}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.emergencyNumber')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.emergency_contact_number}</Text>
+
+                    <Text style={[styles.sectionTitle, { color: tileText }]}>{t('profile.jobInfo')}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.department')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.department}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.dateOfJoin')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.date_of_join}</Text>
+                    <Text style={[styles.label, { color: labelx }]}>{t('profile.salary')}</Text>
+                    <Text style={[styles.value, { color: vlauex }]}>{profile.basic_salary}</Text>
+                </View>
+
+                <TouchableOpacity style={styles.editButton} onPress={() => setModalVisible(true)}>
+                    <Text style={styles.editButtonText}>{t('profile.edit')}</Text>
+                </TouchableOpacity>
+            </View>
+
+            {/* Modal */}
+            <Modal animationType="slide" transparent={true} visible={modalVisible}>
+                <View style={styles.modalOverlay}>
+                    <View style={[styles.modalContent, { backgroundColor: tileBg }]}>
+                        <Text style={[styles.sectionTitle, { marginBottom: 10, color: tileText }]}>{t('profile.editProfile')}</Text>
+                        {['contact_number', 'email', 'persent_address', 'emergency_contact_name', 'emergency_contact_number'].map((key) => (
+                            <TextInput
+                                key={key}
+                                placeholder={t(`profile.${key}`)}
+                                placeholderTextColor="#999"
+                                style={[styles.input, { color: labelx }]}
+                                value={form[key as keyof typeof form]}
+                                onChangeText={(val) => setForm({ ...form, [key]: val })}
+                            />
+                        ))}
+                        <View style={styles.modalActions}>
+                            <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+                                <Text style={styles.saveText}>{t('profile.save')}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setModalVisible(false)}>
+                                <Text style={styles.cancelText}>{t('profile.cancel')}</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-
-                <View style={[styles.cardBody, { backgroundColor: tileBg }]}>
-                    <Text style={[styles.sectionTitle, { color: tileText }]}>{t('profile.personalInfo')}</Text>
-                    <View style={styles.section}><MaterialIcons name="call" size={18} color="#555" /><Text style={styles.label}>{t('profile.contact')}</Text><Text style={styles.value}>{profile.contact_number}</Text></View>
-                    <View style={styles.section}><MaterialIcons name="email" size={18} color="#555" /><Text style={styles.label}>{t('profile.email')}</Text><Text style={styles.value}>{profile.email}</Text></View>
-                    <View style={styles.section}><Ionicons name="location-sharp" size={18} color="#555" /><Text style={styles.label}>{t('profile.address')}</Text><Text style={styles.value}>{profile.persentaddress}</Text></View>
-                    <View style={styles.section}><Ionicons name="person-circle" size={18} color="#555" /><Text style={styles.label}>{t('profile.emergencyName')}</Text><Text style={styles.value}>{profile.emergency_contact_name}</Text></View>
-                    <View style={styles.section}><MaterialIcons name="phone" size={18} color="#555" /><Text style={styles.label}>{t('profile.emergencyNumber')}</Text><Text style={styles.value}>{profile.emergency_contact_number}</Text></View>
-                </View>
-
-                <View style={[styles.cardBody, { backgroundColor: tileBg }]}>
-                    <Text style={[styles.sectionTitle, { color: tileText }]}>{t('profile.jobInfo')}</Text>
-                    <View style={styles.section}><Feather name="users" size={18} color="#555" /><Text style={styles.label}>{t('profile.department')}</Text><Text style={styles.value}>{profile.department}</Text></View>
-                    <View style={styles.section}><Feather name="calendar" size={18} color="#555" /><Text style={styles.label}>{t('profile.dateOfJoin')}</Text><Text style={styles.value}>{profile.date_of_join}</Text></View>
-                    <View style={styles.section}><Feather name="dollar-sign" size={18} color="#555" /><Text style={styles.label}>{t('profile.salary')}</Text><Text style={styles.value}>{profile.basic_salary}</Text></View>
-                </View>
-
-                <View style={[{ paddingHorizontal: 20, paddingVertical: 12, backgroundColor: tileBg }]}>
-                    <TouchableOpacity style={styles.editButton} onPress={() => setModalVisible(true)}>
-                        <Text style={styles.editButtonText}>{t('profile.edit')}</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
+            </Modal>
         </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: { padding: 20 },
-    loading: { flex: 1, justifyContent: "center", alignItems: "center" },
+    loading: { flex: 1, justifyContent: 'center', alignItems: 'center' },
     card: {
-        backgroundColor: "#fff",
         borderRadius: 12,
-        overflow: "hidden",
-        elevation: 2,
-        shadowColor: "#000",
-        shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 6,
+        overflow: 'hidden',
+        elevation: 3,
+        marginBottom: 20
     },
     cardHeader: {
-        backgroundColor: "#006bad",
+        backgroundColor: '#006bad',
         padding: 20,
-        alignItems: "center",
+        alignItems: 'center'
     },
     avatarContainer: {
-        width: 80,
-        height: 100,
-        justifyContent: "center",
-        alignItems: "center",
-        overflow: "hidden",
-        marginBottom: 10,
+        marginBottom: 10
     },
     avatar: {
-        width: 80,
-        height: 100,
-        borderRadius: 10,
+        width: 100,
+        height: 120,
+        borderRadius: 12,
         borderWidth: 2,
-        borderColor: "#fff",
-        backgroundColor: "#f0f0f0",
+        borderColor: '#fff',
+        backgroundColor: '#f0f0f0'
     },
-    cardHeaderText: { alignItems: "center" },
-    cardName: { fontSize: 22, fontWeight: "700", color: "#fff" },
-    cardMeta: { fontSize: 14, color: "#f1f1f1", marginTop: 4 },
-    cardBody: { padding: 16 },
-    sectionTitle: { fontSize: 16, fontWeight: "600", marginBottom: 8, color: "#333" },
-    section: {
-        backgroundColor: "#fff",
-        borderRadius: 10,
-        padding: 16,
-        marginBottom: 12,
-        elevation: 1,
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-    },
-    label: { fontSize: 13, fontWeight: "600", marginTop: 4, color: "#555" },
-    value: { fontSize: 14, marginTop: 4, color: "#222" },
+    cardName: { fontSize: 22, fontWeight: '700', color: '#fff' },
+    cardMeta: { fontSize: 14, color: '#f1f1f1', marginTop: 4 },
+    infoBlock: { padding: 20 },
+    sectionTitle: { fontSize: 18, fontWeight: '700', marginBottom: 12 },
+    label: { fontSize: 13, color: '#777', marginTop: 10 },
+    value: { fontSize: 15, fontWeight: '500', color: '#222' },
     editButton: {
         backgroundColor: '#006bad',
-        paddingVertical: 14,
-        borderRadius: 8,
-        alignItems: 'center',
+        padding: 14,
+        borderBottomLeftRadius: 12,
+        borderBottomRightRadius: 12,
+        alignItems: 'center'
+    },
+    editButtonText: { color: '#fff', fontWeight: '600', fontSize: 16 },
+    modalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.6)',
         justifyContent: 'center',
+        padding: 20
+    },
+    modalContent: {
+        padding: 20,
+        borderRadius: 12
+    },
+    input: {
+        borderWidth: 1,
+        borderColor: '#ccc',
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        borderRadius: 8,
+        marginBottom: 12,
+        color: '#000'
+    },
+    modalActions: {
         marginTop: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
-    editButtonText: {
+    saveButton: {
+        backgroundColor: '#006bad',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 6
+    },
+    saveText: {
         color: '#fff',
-        fontSize: 16,
-        fontWeight: '600',
+        fontWeight: '600'
     },
+    cancelText: {
+        marginTop: 12,
+        color: '#888'
+    }
 });

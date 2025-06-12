@@ -1,5 +1,6 @@
 import { useTheme } from '@/app/theme-context';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native';
 import Toast from 'react-native-toast-message';
 
@@ -9,12 +10,13 @@ const dummyTimesheets = [
   { month: 'March 2025' },
   { month: 'April 2025' },
   { month: 'May 2025' },
-  { month: 'June 2025' }
+  { month: 'June 2025' },
 ];
 
 export default function AttendanceScreen() {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const { t } = useTranslation();
 
   const bg = isDark ? '#000' : '#F4F7FC';
   const tileBg = isDark ? '#1e1e1e' : '#fff';
@@ -31,20 +33,20 @@ export default function AttendanceScreen() {
   const handlePress = () => {
     Toast.show({
       type: 'info',
-      text1: 'Coming Soon',
-      text2: 'This feature is under development.'
+      text1: t('common.comingSoon'),
+      text2: t('attendance.featureSoon')
     });
   };
 
   return (
     <ScrollView contentContainerStyle={[styles.container, { backgroundColor: bg }]}>
-      <Text style={[styles.title, { color: headingColor }]}>Attendance</Text>
+      <Text style={[styles.title, { color: headingColor }]}>{t('dashboard.attendance')}</Text>
       <Text style={[styles.note, { color: redNote }]}>
-        Attendance records are subject to system sync and company policy.
+        {t('attendance.note')}
       </Text>
 
       <TextInput
-        placeholder="Search month..."
+        placeholder={t('attendance.searchMonth')}
         placeholderTextColor={isDark ? '#888' : '#aaa'}
         style={[
           styles.search,
