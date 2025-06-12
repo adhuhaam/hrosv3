@@ -17,7 +17,18 @@
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#F8F9FC"
       },
-      "package": "com.rcc.hrosv3"
+      "package": "com.rcc.hrosv3",
+      "permissions": [
+        "VIBRATE",
+        "POST_NOTIFICATIONS"
+      ],
+      "notification": {
+        "icon": "./assets/icon.png",
+        "color": "#006bad",
+        "sounds": [
+          "default"
+        ]
+      }
     },
     "web": {
       "bundler": "metro",

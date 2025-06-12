@@ -10,7 +10,12 @@ export const onboardingStyles = StyleSheet.create({
       padding: 24,
       justifyContent: 'center',
       alignItems: 'center',
-    },
+  },
+  animation: {
+    width: 240,
+    height: 240,
+    marginBottom: 30,
+  },
     lottie: {
       width: 200,
       height: 200,

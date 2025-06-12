@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
-import LottieView from 'lottie-react-native';
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
@@ -56,12 +55,7 @@ export default function WelcomeScreen() {
 
   return (
     <View style={styles.container}>
-      <LottieView
-        source={require('@/assets/animations/welcome.json')}
-        autoPlay
-        loop
-        style={styles.animation}
-      />
+
 
       <Text style={styles.title}>Welcome to HRoS</Text>
       <Text style={styles.subtitle}>The Employee Self-Service Portal</Text>

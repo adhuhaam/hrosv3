@@ -2,6 +2,7 @@ import { ThemeProvider, useTheme } from '@/app/theme-context';
 import { logout } from '@/app/utils/auth';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
+import * as Notifications from 'expo-notifications';
 import { Slot, usePathname, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
@@ -48,8 +49,28 @@ function AppContent() {
     }
   };
 
+  useEffect(() => {
+    const setupNotifications = async () => {
+      const { status } = await Notifications.requestPermissionsAsync();
+      if (status !== 'granted') {
+        Alert.alert('Permission required', 'Enable notifications to get chat alerts.');
+      }
+
+      await Notifications.setNotificationChannelAsync('chat-messages', {
+        name: 'Chat Messages',
+        importance: Notifications.AndroidImportance.MAX,
+        sound: 'default',
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#FF231F7C',
+      });
+
+
+    };
+
+    setupNotifications();
+  }, []);
+
   return (
-    //<TouchableWithoutFeedback onPress={() => setMenuOpen(false)}>
     <View style={[styles.wrapper, { backgroundColor: isDark ? '#000' : '#F8F9FC' }]}>
       <SafeAreaView style={styles.container}>
         <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} translucent backgroundColor="transparent" />
@@ -96,7 +117,6 @@ function AppContent() {
         <Toast />
       </SafeAreaView>
     </View>
-    //</TouchableWithoutFeedback>
   );
 }
 
@@ -117,7 +137,9 @@ export default function Layout() {
     if (fontsLoaded) await SplashScreen.hideAsync();
   }, [fontsLoaded]);
 
-  useEffect(() => { hideSplashScreen(); }, [hideSplashScreen]);
+  useEffect(() => {
+    hideSplashScreen();
+  }, [hideSplashScreen]);
 
   if (!fontsLoaded) return <LoadingScreen />;
 
@@ -169,7 +191,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   loadingContainer: {
-    flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fff',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   loadingText: {
     fontSize: 16,

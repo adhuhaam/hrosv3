@@ -1,10 +1,5 @@
 import { login } from '@/api/api';
 import { useTheme } from '@/app/theme-context'; // Moved out of /app
-import {
-  AntDesign,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
@@ -114,17 +109,7 @@ export default function LoginScreen() {
         Forgot Password?
       </Text>
 
-      <View style={styles.socialRow}>
-        <TouchableOpacity style={styles.socialIcon}>
-          <AntDesign name="google" size={24} color="#DB4437" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialIcon}>
-          <FontAwesome name="linkedin" size={24} color="#0A66C2" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.socialIcon}>
-          <MaterialCommunityIcons name="microsoft" size={24} color="#5E5E5E" />
-        </TouchableOpacity>
-      </View>
+
 
       <Toast />
     </KeyboardAvoidingView>

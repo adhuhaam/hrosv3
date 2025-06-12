@@ -53,14 +53,28 @@ export default function ChatScreen() {
                 if (res.data.messages.length > lastMessageCount) {
                     const latest = res.data.messages[res.data.messages.length - 1];
                     if (latest.from === 'hr') {
-                        Notifications.scheduleNotificationAsync({
+                        await Notifications.scheduleNotificationAsync({
                             content: {
                                 title: 'New message from HR',
                                 body: latest.message,
+                                sound: 'default',
                             },
                             trigger: null,
+                            android: {
+                                channelId: 'chat-messages',
+                                sound: 'default',
+                                priority: 'max',
+                                vibrate: [0, 250, 250, 250],
+                            },
                         });
+
+
+
+
+
+
                     }
+
                 }
                 setLastMessageCount(res.data.messages.length);
             }
@@ -71,6 +85,7 @@ export default function ChatScreen() {
             setLoading(false);
         }
     };
+
 
     const sendMessage = async () => {
         if (!empNo || !newMessage.trim()) {
