@@ -1,5 +1,5 @@
 // onboarding/page6.tsx
-// onboarding/page2.tsx
+// final onboarding screen
 import { onboardingStyles as styles } from "@/app/onboarding/onboardingStyles";
 import { useTheme } from "@/app/theme-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -35,7 +35,7 @@ export default function Page6() {
             </Text>
             <Text style={[styles.subtitle, { color: subTextColor }]}>
                 Access your employee profile, track attendance, apply for leave, view
-                your payslips, and stay informed — all in one app. If you're unsure of
+                your payslips, and stay informed — all in one app. If you&apos;re unsure of
                 your login credentials, kindly reach out to your HR department for
                 assistance.
             </Text>
