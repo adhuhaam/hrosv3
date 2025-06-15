@@ -5,7 +5,8 @@ import { useFonts } from 'expo-font';
 import * as Notifications from 'expo-notifications';
 import { Slot, usePathname, useRouter } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Menu, Provider as PaperProvider } from 'react-native-paper';
 import { useTranslation } from 'react-i18next';
 import {
   Alert,
@@ -36,8 +37,7 @@ function AppContent() {
   const showNav = !isPublicPage;
   const showBackButton = !isPublicPage && !isDashboard;
 
-  const [menuOpen, setMenuOpen] = useState(false);
-  const dropdownRef = useRef<View>(null);
+  const [menuVisible, setMenuVisible] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -86,29 +86,35 @@ function AppContent() {
             )}
 
             <View style={styles.rightButtons}>
-              <Pressable onPress={() => setMenuOpen(!menuOpen)} hitSlop={10}>
-                <Feather name="more-vertical" size={26} color={isDark ? '#fff' : '#333'} />
-              </Pressable>
-
-              {menuOpen && (
-                <View ref={dropdownRef} style={[styles.dropdownMenu, { backgroundColor: isDark ? '#222' : '#fff' }]}>
-                  <TouchableOpacity
-                    onPress={() => {
-                      setMenuOpen(false);
-                      router.push('/settings');
-                    }}
-                    style={styles.menuButton}
-                  >
-                    <Feather name="settings" size={18} color={isDark ? '#eee' : '#333'} />
-                    <Text style={[styles.menuText, { color: isDark ? '#eee' : '#333' }]}>Settings</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity onPress={handleLogout} style={styles.menuButton}>
-                    <Feather name="power" size={18} color="#FF3B30" />
-                    <Text style={[styles.menuText, { color: '#FF3B30' }]}>{t('auth.logout')}</Text>
-                  </TouchableOpacity>
-                </View>
-              )}
+              <Menu
+                visible={menuVisible}
+                onDismiss={() => setMenuVisible(false)}
+                anchor={
+                  <Pressable onPress={() => setMenuVisible(true)} hitSlop={10}>
+                    <Feather name="more-vertical" size={26} color={isDark ? '#fff' : '#333'} />
+                  </Pressable>
+                }
+                contentStyle={{ backgroundColor: isDark ? '#222' : '#fff' }}
+              >
+                <Menu.Item
+                  onPress={() => {
+                    setMenuVisible(false);
+                    router.push('/settings');
+                  }}
+                  leadingIcon="cog-outline"
+                  title="Settings"
+                  titleStyle={{ color: isDark ? '#eee' : '#333' }}
+                />
+                <Menu.Item
+                  onPress={() => {
+                    setMenuVisible(false);
+                    handleLogout();
+                  }}
+                  leadingIcon="power"
+                  title={t('auth.logout')}
+                  titleStyle={{ color: '#FF3B30' }}
+                />
+              </Menu>
             </View>
           </View>
         )}
@@ -145,7 +151,9 @@ export default function Layout() {
 
   return (
     <ThemeProvider>
-      <AppContent />
+      <PaperProvider>
+        <AppContent />
+      </PaperProvider>
     </ThemeProvider>
   );
 }
@@ -166,29 +174,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-end',
     position: 'relative',
-  },
-  dropdownMenu: {
-    position: 'absolute',
-    top: 36,
-    right: 0,
-    borderRadius: 10,
-    padding: 10,
-    elevation: 6,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.25,
-    zIndex: 999,
-    width: 180,
-  },
-  menuButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: 8,
-  },
-  menuText: {
-    fontSize: 16,
-    fontWeight: '600',
   },
   loadingContainer: {
     flex: 1,
