@@ -36,7 +36,7 @@ export default function ProfileScreen() {
     const [form, setForm] = useState({
         contact_number: '',
         email: '',
-        persent_address: '',
+        present_address: '',
         emergency_contact_number: '',
         emergency_contact_name: ''
     });
@@ -60,7 +60,7 @@ export default function ProfileScreen() {
                     setForm({
                         contact_number: empRes.data.data.contact_number,
                         email: empRes.data.data.email,
-                        persent_address: empRes.data.data.persentaddress,
+                        present_address: empRes.data.data.persentaddress,
                         emergency_contact_number: empRes.data.data.emergency_contact_number ?? '',
                         emergency_contact_name: empRes.data.data.emergency_contact_name ?? ''
                     });
@@ -76,8 +76,8 @@ export default function ProfileScreen() {
     }, []);
 
     const handleSave = async () => {
-        const { contact_number, email, persent_address, emergency_contact_number, emergency_contact_name } = form;
-        if (!contact_number || !email || !persent_address || !emergency_contact_name || !emergency_contact_number) {
+        const { contact_number, email, present_address, emergency_contact_number, emergency_contact_name } = form;
+        if (!contact_number || !email || !present_address || !emergency_contact_name || !emergency_contact_number) {
             Alert.alert(t('error.missingFields'), t('error.allFieldsRequired'));
             return;
         }
@@ -85,7 +85,7 @@ export default function ProfileScreen() {
         formData.append('emp_no', empNo);
         formData.append('contact_number', contact_number);
         formData.append('email', email);
-        formData.append('persent_address', persent_address);
+        formData.append('present_address', present_address);
         formData.append('emergency_contact_number', emergency_contact_number);
         formData.append('emergency_contact_name', emergency_contact_name);
 
@@ -98,7 +98,11 @@ export default function ProfileScreen() {
             if (res.data.status === 'success') {
                 setModalVisible(false);
                 ToastAndroid.show(t('toast.profileUpdated'), ToastAndroid.SHORT);
-                setProfile({ ...profile, ...form });
+                setProfile({
+                    ...profile,
+                    ...form,
+                    persentaddress: form.present_address
+                });
             } else {
                 Alert.alert(t('error.updateFailed'), res.data.message || t('error.tryAgain'));
             }
@@ -166,16 +170,26 @@ export default function ProfileScreen() {
                 <View style={styles.modalOverlay}>
                     <View style={[styles.modalContent, { backgroundColor: tileBg }]}>
                         <Text style={[styles.sectionTitle, { marginBottom: 10, color: tileText }]}>{t('profile.editProfile')}</Text>
-                        {['contact_number', 'email', 'persent_address', 'emergency_contact_name', 'emergency_contact_number'].map((key) => (
-                            <TextInput
-                                key={key}
-                                placeholder={t(`profile.${key}`)}
-                                placeholderTextColor="#999"
-                                style={[styles.input, { color: labelx }]}
-                                value={form[key as keyof typeof form]}
-                                onChangeText={(val) => setForm({ ...form, [key]: val })}
-                            />
-                        ))}
+                        {['contactNumber', 'email', 'presentAddress', 'emergencyContactName', 'emergencyContactNumber'].map((key) => {
+                            const mapKeys: Record<string, keyof typeof form> = {
+                                contactNumber: 'contact_number',
+                                email: 'email',
+                                presentAddress: 'present_address',
+                                emergencyContactName: 'emergency_contact_name',
+                                emergencyContactNumber: 'emergency_contact_number'
+                            };
+                            const formKey = mapKeys[key];
+                            return (
+                                <TextInput
+                                    key={key}
+                                    placeholder={t(`profile.${key}`)}
+                                    placeholderTextColor="#999"
+                                    style={[styles.input, { color: labelx }]}
+                                    value={form[formKey]}
+                                    onChangeText={(val) => setForm({ ...form, [formKey]: val })}
+                                />
+                            );
+                        })}
                         <View style={styles.modalActions}>
                             <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
                                 <Text style={styles.saveText}>{t('profile.save')}</Text>
