@@ -26,7 +26,7 @@ export default function ProfileScreen() {
     const tileBg = isDark ? '#1e1e1e' : '#fff';
     const tileText = isDark ? '#ccc' : '#000';
     const labelx = isDark ? '#fff' : '#000';
-    const vlauex = isDark ? '#ccc' : '#000';
+    const valueColor = isDark ? '#ccc' : '#000';
     const [empNo, setEmpNo] = useState('');
     const [loading, setLoading] = useState(true);
     const [profile, setProfile] = useState<any>(null);
@@ -141,23 +141,23 @@ export default function ProfileScreen() {
                 <View style={styles.infoBlock}>
                     <Text style={[styles.sectionTitle, { color: tileText }]}>{t('profile.personalInfo')}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.contact')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.contact_number}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.contact_number}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.email')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.email}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.email}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.address')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.persentaddress}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.persentaddress}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.emergencyName')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.emergency_contact_name}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.emergency_contact_name}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.emergencyNumber')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.emergency_contact_number}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.emergency_contact_number}</Text>
 
                     <Text style={[styles.sectionTitle, { color: tileText }]}>{t('profile.jobInfo')}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.department')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.department}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.department}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.dateOfJoin')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.date_of_join}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.date_of_join}</Text>
                     <Text style={[styles.label, { color: labelx }]}>{t('profile.salary')}</Text>
-                    <Text style={[styles.value, { color: vlauex }]}>{profile.basic_salary}</Text>
+                    <Text style={[styles.value, { color: valueColor }]}>{profile.basic_salary}</Text>
                 </View>
 
                 <TouchableOpacity style={styles.editButton} onPress={() => setModalVisible(true)}>
