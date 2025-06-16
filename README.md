@@ -1,6 +1,6 @@
 # HRoS Employee Self-Care App (React Native + Expo)
 
-This is a mobile self-service application for employees, built with **React Native (Expo)**. It connects to the existing PHP-based HRoS backend and provides access to personal data, attendance, leave, payroll, and documents.
+This is a mobile self-service application for employees, built with **React Native (Expo)**. It connects to the existing PHP-based HRoS backend and provides access to personal data, attendance, leave, payroll, and document.
 
 ---
 
