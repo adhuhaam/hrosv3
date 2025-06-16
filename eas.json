@@ -10,7 +10,7 @@
         "buildType": "app-bundle"
       }
     },
-    "Production": {
+    "production": {
       "distribution": "store",
       "autoIncrement": true,
       "android": {
@@ -22,7 +22,7 @@
     }
   },
   "submit": {
-    "Production": {
+    "production": {
       "android": {}
     }
   }
