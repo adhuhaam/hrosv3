@@ -5,8 +5,10 @@
   "scripts": {
     "start": "expo start --dev-client",
     "reset-project": "node ./scripts/reset-project.js",
+
     "android": "eas build --platform android --profile Production",
     "ios": "eas build --platform ios --profile Production",
+
     "web": "expo start --web",
     "lint": "expo lint"
   },
