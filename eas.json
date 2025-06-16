@@ -4,30 +4,25 @@
     "appVersionSource": "remote"
   },
   "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "android": {
-        "buildType": "apk",
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
     "local": {
       "distribution": "internal",
       "android": {
         "buildType": "app-bundle"
       }
     },
-    "production": {
+    "Production": {
       "distribution": "store",
       "autoIncrement": true,
       "android": {
         "buildType": "app-bundle"
+      },
+      "ios": {
+        "buildConfiguration": "Release"
       }
     }
   },
   "submit": {
-    "production": {
+    "Production": {
       "android": {}
     }
   }
