@@ -61,3 +61,22 @@ This app connects to the PHP HRoS backend via REST endpoints:
 
 
 
+## 🔑 Updating iOS Credentials
+
+If you encounter a **"Verification Failed"** message when installing the iOS `.ipa`, you may need to refresh the signing credentials and rebuild. The project now includes the [EAS CLI](https://docs.expo.dev/eas/credentials/) as a development dependency to streamline this process.
+
+Run the following commands:
+
+```bash
+# Install dependencies (if not already installed)
+npm install
+
+# Update the stored iOS credentials
+npm run update-credentials
+
+# Rebuild the iOS application using the production profile
+npm run ios
+```
+
+The `update-credentials` script opens the EAS credentials manager where you can upload new certificates or provisioning profiles. After updating, rebuilding the app will produce a new `.ipa` that can be installed without verification issues.
+

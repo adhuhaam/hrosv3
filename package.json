@@ -8,7 +8,8 @@
     "android": "eas build --platform android --profile production",
     "ios": "eas build --platform ios --profile production",
     "web": "expo start --web",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "update-credentials": "eas credentials"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
@@ -60,7 +61,8 @@
     "@types/react-native": "^0.73.0",
     "eslint": "^9.28.0",
     "eslint-config-expo": "~9.2.0",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "eas-cli": "^16.10.1"
   },
   "private": true
 }
