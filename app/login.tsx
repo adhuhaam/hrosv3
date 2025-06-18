@@ -1,6 +1,6 @@
 import { login } from '@/api/api';
 import { useTheme } from '@/app/theme-context'; // Moved out of /app
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUser } from '@/app/user-context';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
 import {
@@ -27,6 +27,7 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { setUser } = useUser();
 
   const handleLogin = async () => {
     if (!username || !password) {
@@ -40,7 +41,7 @@ export default function LoginScreen() {
       setLoading(false);
 
       if (result.status === 'success' && result.data) {
-        await AsyncStorage.setItem('user', JSON.stringify(result.data));
+        await setUser(result.data);
         router.replace('/dashboard');
       } else {
         Alert.alert('Login Failed', result.message || 'Invalid credentials');

@@ -1,5 +1,5 @@
 import { ThemeProvider, useTheme } from '@/app/theme-context';
-import { logout } from '@/app/utils/auth';
+import { UserProvider, useUser } from '@/app/user-context';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import * as Notifications from 'expo-notifications';
@@ -27,6 +27,7 @@ function AppContent() {
   const pathname = usePathname();
   const router = useRouter();
   const { theme } = useTheme();
+  const { logout } = useUser();
   const { t } = useTranslation();
   const isDark = theme === 'dark';
 
@@ -151,9 +152,11 @@ export default function Layout() {
 
   return (
     <ThemeProvider>
-      <PaperProvider>
-        <AppContent />
-      </PaperProvider>
+      <UserProvider>
+        <PaperProvider>
+          <AppContent />
+        </PaperProvider>
+      </UserProvider>
     </ThemeProvider>
   );
 }

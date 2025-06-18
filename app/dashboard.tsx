@@ -5,7 +5,7 @@ import {
   Fontisto,
   Ionicons
 } from '@expo/vector-icons';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUser } from '@/app/user-context';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRouter } from 'expo-router';
@@ -22,12 +22,6 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-
-type UserType = {
-  emp_no: string;
-  staff_name?: string;
-  name?: string;
-};
 
 
 
@@ -82,7 +76,7 @@ export default function DashboardScreen() {
 
 
   // State variables
-  const [user, setUser] = useState<UserType | null>(null);
+  const { user } = useUser();
   const [employee, setEmployee] = useState<any>(null);
   const [notices, setNotices] = useState<any[]>([]);
   const [holidays, setHolidays] = useState<any[]>([]);
@@ -91,13 +85,9 @@ export default function DashboardScreen() {
 
   const loadData = async () => {
     try {
-      const stored = await AsyncStorage.getItem('user');
-      if (!stored) return;
+      if (!user) return;
 
-      const parsedUser: UserType = JSON.parse(stored);
-      setUser(parsedUser);
-
-      const empNo = parsedUser.emp_no;
+      const empNo = user.emp_no;
 
       const [empRes, photoRes, noticeRes, holidayRes] = await Promise.all([
         axios.get(`https://api.rccmaldives.com/ess/employees/index.php?emp_no=${empNo}`),
