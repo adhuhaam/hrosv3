@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useUser } from '@/app/user-context';
 import { useRouter } from 'expo-router';
 import { useEffect, useState } from 'react';
 import {
@@ -13,6 +14,7 @@ import {
 
 export default function WelcomeScreen() {
   const router = useRouter();
+  const { user } = useUser();
   const [showButton, setShowButton] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -20,17 +22,11 @@ export default function WelcomeScreen() {
     const checkStatus = async () => {
       try {
         const isFirstTime = await AsyncStorage.getItem('first_time');
-        const userJson = await AsyncStorage.getItem('user');
 
         if (!isFirstTime) {
           router.replace('/onboarding/page1');
-        } else if (userJson) {
-          const user = JSON.parse(userJson);
-          if (user && typeof user === 'object' && user.emp_no) {
-            router.replace('/dashboard');
-          } else {
-            throw new Error('Corrupted user object');
-          }
+        } else if (user) {
+          router.replace('/dashboard');
         } else {
           router.replace('/login');
         }
@@ -43,7 +39,7 @@ export default function WelcomeScreen() {
     };
 
     checkStatus();
-  }, []);
+  }, [user]);
 
   const handleFallbackLogin = () => {
     try {

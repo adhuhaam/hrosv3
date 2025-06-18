@@ -1,7 +1,7 @@
 import axios from 'axios';
 import qs from 'qs';
 
-const BASE_URL = 'https://api.rccmaldives.com/ess';
+const BASE_URL = process.env.EXPO_PUBLIC_API_URL ?? 'https://api.rccmaldives.com/ess';
 
 export interface User {
   id: string;
